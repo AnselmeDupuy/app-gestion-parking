@@ -1,0 +1,49 @@
+<link href="includes/componentsCss/users.css" rel="stylesheet">
+
+<div class="mt-2 mb-2">
+    <h1 class="text-center">Users list</h1>
+</div>
+
+<div class="row users-list">
+    <table class="table table-bordered ">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Active</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <?php foreach($users as $user): ?>
+                <tr>
+                    <td><?php echo $user['id']; ?></td>
+                    <td><?php echo $user['email']; ?></td>
+                    <td><?php echo $user['firstName']; ?></td>
+                    <td><?php echo $user['surName']; ?></td>
+                    <td><?php echo $user['phone']; ?></td>
+                    <td>
+                        <a
+                            href="index.php?component=users&action=toggle_enabled&id=<?php echo $user['id'];?>">
+                            <i
+                                class="fa-solid <?php echo ($user['is_active'])
+                                ? 'fa-circle-check text-success'
+                                : 'fa-circle-xmark text-danger' ?>">
+                            </i>
+                        </a>
+                    </td>
+
+
+
+                    
+                </tr>
+
+            <?php endforeach; ?>
+        </tr>
+        </tbody>
+    </table>
+</div>
+

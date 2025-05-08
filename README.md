@@ -34,12 +34,5 @@ gestion profil users:
     - admin peux gerer les profiles users
 
 
-BDD:
-groups: id; groupName (admin/user)
-user: id; groupId; userName; password; cardNumber; cardDate; cryptoGram
-
-placesParking: id; types (1,2,3); reservé (true/false); userId; 
-
-Logs: id; date; userId; actionName; 
 
 https://excalidraw.com/
