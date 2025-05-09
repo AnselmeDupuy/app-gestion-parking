@@ -2,10 +2,7 @@
     font-family: Arial, sans-serif; padding: 2rem; 
 }
 
-.dashBoardh1 { 
-    color: #2c3e50;
-}
-.dashBoardCard h3, p {
+.dashBoardCard h3, .dashBoardCard p {
     color: black;
 }
 

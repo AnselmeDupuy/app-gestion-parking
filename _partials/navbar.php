@@ -2,7 +2,7 @@
     <h2>ParkingSpot Manager</h2>
     <nav class="navbarLinks">
       <a href="#">Home</a>
-      <a href="#">Dashboard</a>
-      <a href="#">Login</a>
+      <a href="#">Dashboard -> login</a>
+      <a href="#">Login / profile</a>
       <a href="#">Contact</a>
     </nav>

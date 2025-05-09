@@ -65,7 +65,7 @@
 
                 // require "Controller/inscription.php";
                 // require "Controller/login.php";
-                require "Controller/profile.php";
+                // require "Controller/profile.php";
                 // require "Controller/users.php";
 
                 // require "Controller/adminParkings.php";
