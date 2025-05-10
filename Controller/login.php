@@ -4,9 +4,8 @@
  */
 require "Model/login.php";
 
-if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
-    $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest'
-) {
+if (isset($_POST["login_button"])) {
+    $action = 'login';
     $email = !empty($_POST['email']) ? $_POST['email'] : null;
     $password = !empty($_POST['password']) ? $_POST['password'] : null;
 
@@ -18,36 +17,36 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
         if(is_array($user)){
             $isMatchPassword = is_array($user) && password_verify($password, $user['password']);
 
-            if($isMatchPassword && $user['is_active'] && is_array($user)){
+            if($isMatchPassword && $user['is_active'] === 1 && is_array($user)){
                 $_SESSION['auth'] = true;
                 $_SESSION['email'] = $user['email'];
-                $_SESSION['userId'] = $user['id'];
+                $_SESSION['user_id'] = $user['id'];
                 $_SESSION['role'] = $user['group_id'] == 2 ? 'admin' : 'user';
-                $_SESSION['password'] = $user['password'];
-                $_SESSION['client_IP'] = $_SERVER['REMOTE_ADDR'];
+
+                $details = "Login successful";
+                logAction($pdo, $action, $details);
+
+                header("Location: index.php");
 
                 exit();
-            } elseif (!$user['is_active'] && $isMatchPassword && is_array($user)){
-                $errors[] = "Votre compte est desactivé";
+            } elseif ($user['is_active'] !== 1 && $isMatchPassword && is_array($user)){
+                $errors[] = "account is inactive";
+                $details = "Login attempt failed, account is inactive";
+                logAction($pdo, $action, $details);
             } else {
-                $errors[] = "Authentification invalide";
+                $errors[] = "authentication failed, invalid password";
+                $details = "Login attempt failed, invalid password";
+                logAction($pdo, $action, $details);
             }
         } else {
-            $errors[] = "Utilisateur invalide";
+            $errors[] = "user invalid";
+            $details = "Login attempt failed, invalid user";
+            logAction($pdo, $action, $details);
         }
     } else {
-        $_SESSION['auth'] = false;
-        $_SESSION['email'] = null;
-        $_SESSION['client_IP'] = $_SERVER['REMOTE_ADDR'];
-        $_SESSION['role'] = 'guest';
-        $_SESSION['password'] = null;
-        
-    }
-
-    if(!empty($errors)){
-        header("Content-type: application/json");
-        echo json_encode(['errors' => $errors]);
-        exit;
+        $errors[] = "authentication failed, missing input";
+        $details = "Login attempt failed, missing input";
+        logAction($pdo, $action, $details);
     }
 }
 

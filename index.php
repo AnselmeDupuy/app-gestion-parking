@@ -2,9 +2,11 @@
     session_start();
 
     require "includes/function.php";
+    require "includes/logs.php";
     require  './vendor/autoload.php';
     $dotenv = Dotenv\Dotenv::createImmutable(".");
     $dotenv->safeLoad();
+
 
     // var_dump($_SESSION); //DEBUG
     // var_dump($_SERVER); //DEBUG
@@ -52,21 +54,23 @@
     </header>
     <main>
             <?php
-                // require "_partials/navbar.php";
-
-                // if(isset($_GET["component"])){
-                //     $componentName = cleanString($_GET["component"]);
-                //     if(file_exists("Controller/$componentName.php")){
-                //         require "Controller/$componentName.php";
-                //     }
-                // } 
+                if(isset($_GET["component"])){
+                    $componentName = cleanString($_GET["component"]);
+                    if(file_exists("Controller/$componentName.php")){
+                        require "Controller/$componentName.php";
+                    } else {
+                        require "Controller/home.php";
+                    }
+                } else {
+                    require "Controller/home.php";
+                }
                 // require "Controller/home.php";
                 // require "Controller/parkings.php";
 
-                require "Controller/inscription.php";
+                // require "Controller/inscription.php";
                 // require "Controller/login.php";
                 // require "Controller/profile.php";
-                require "Controller/users.php";
+                // require "Controller/users.php";
 
                 // require "Controller/adminParkings.php";
 

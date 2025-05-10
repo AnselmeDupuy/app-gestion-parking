@@ -13,20 +13,25 @@ if (isset($_POST["create_user_button"])) {
     $firstName = !empty($_POST['first-name']) ? cleanString($_POST['first-name']) : null;
     $lastName = !empty($_POST['last-name']) ? cleanString($_POST['last-name']) : null;
     $phone = !empty($_POST['phone']) ? cleanString($_POST['phone']) : null;
-    
-    logAction($pdo, $action);
-    
+        
     if ($password !== $confirmation) {
         $errors[] = "Le mot de passe et sa confirmation sont différents";
+        logAction($pdo, $action, $errors[0]);
     } else {
         $password = password_hash($password, PASSWORD_DEFAULT);
         $newUser = addUser($pdo, $password, $email, $phone, $firstName, $lastName);
+
+        $details = !empty($newUser) ? "User created successfully" : "User creation failed";
+        logAction($pdo, $action, $details);
+
 
         if ($newUser === true) {
             header("Location: index.php");
             exit();
         } else {
             $errors[] = $newUser;
+            $details = !empty($newUser) ? "User creation failed" : "User created successfully";
+            logAction($pdo, $action, $details);
         }
     }
 }
