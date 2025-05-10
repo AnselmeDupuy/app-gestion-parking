@@ -63,10 +63,10 @@
                 // require "Controller/home.php";
                 // require "Controller/parkings.php";
 
-                // require "Controller/inscription.php";
+                require "Controller/inscription.php";
                 // require "Controller/login.php";
                 // require "Controller/profile.php";
-                // require "Controller/users.php";
+                require "Controller/users.php";
 
                 // require "Controller/adminParkings.php";
 

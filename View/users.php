@@ -14,6 +14,7 @@
             <th scope="col">Last Name</th>
             <th scope="col">Phone</th>
             <th scope="col">Active</th>
+            <th scope="col">Role</th>
         </tr>
         </thead>
         <tbody>
@@ -35,7 +36,7 @@
                             </i>
                         </a>
                     </td>
-
+                    <td><?php if($user['group_id'] === 1){echo 'user';} else {echo 'admin';};?></td>
 
 
                     
