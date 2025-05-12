@@ -7,12 +7,12 @@
     </div>
     
     <div class="card-body">
-    <p class="card-text">First Name: <?php echo $user['firstName'] ?></p>
-    <p class="card-text">Last Name: <?php echo $user['surName'] ?></p>
-    <p class="card-text">Email: <?php echo $user['email'] ?></p>
-    <p class="card-text">Phone number: <?php echo $user['phone'] ?></p>
-    <p class="card-text">Inscription Date: <?php echo $user['created_at'] ?></p>
-    <p class="card-text">Role: <?php echo ($user['group_id']) ? 'admin' : 'user' ?></p>
+    <p class="card-text">First Name : <?php echo $user['firstName'] ?></p>
+    <p class="card-text">Last Name : <?php echo $user['surName'] ?></p>
+    <p class="card-text">Email : <?php echo $user['email'] ?></p>
+    <p class="card-text">Phone number : <?php echo $user['phone'] ?></p>
+    <p class="card-text">Inscription Date : <?php echo $user['created_at'] ?></p>
+    <p class="card-text">Group : <?php echo ($user['group_id']) ? 'admin' : 'user' ?></p>
     <a href="#" class="btn btn-primary">Edit Profile</a>
   </div>
 </div>

@@ -32,5 +32,6 @@ function logAction(PDO $pdo, string $action, ?string $details = "no details"): v
     $stmt->bindValue(':details', $details);
     $stmt->execute();
     $stmt->closeCursor();
+
     
 }
