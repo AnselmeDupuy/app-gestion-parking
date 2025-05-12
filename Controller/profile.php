@@ -5,7 +5,7 @@
 require "Model/profile.php";
 
 
-$user = getUserById($pdo, 1);
+$user = getUserById($pdo, $_SESSION['user_id']);
 
 
 

@@ -1,8 +1,7 @@
 <link rel="stylesheet" href="includes/componentsCss/dashboard.css">
 
 <div class="dashboardBody">
-  <a class="logout" href="logout.php">Logout</a>
-  <h1 class="dashBoardh1">Welcome, <?php echo "Temporaire" ?>!</h1>
+  <h1 class="dashBoardh1">Welcome, <?php echo $_SESSION['first_name'] ?>!</h1>
   <div class="dashBoardCard">
     <h3>Reserved Parking Spot</h3>
     <p>Date: </p>

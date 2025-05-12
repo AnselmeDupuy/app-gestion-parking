@@ -13,7 +13,7 @@
     $guestPages = ['home', 'login', 'inscription', 'contact'];
     $publicPages = ['home', 'login', 'inscription', 'contact'];
 
-    var_dump($_SESSION); //DEBUG
+    // var_dump($_SESSION); //DEBUG
     // var_dump($_SERVER['REQUEST_URI']); //DEBUG
 
 

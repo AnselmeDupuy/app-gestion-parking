@@ -22,6 +22,9 @@ if (isset($_POST["login_button"])) {
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['group'] = $user['group_id'] == 2 ? 'admin' : 'user';
+                $_SESSION['first_name'] = $user['firstName'];
+                $_SESSION['last_name'] = $user['lastName'];
+                $_SESSION['phone'] = $user['phone'];
 
                 $details = "Login successful";
                 logAction($pdo, $action, $details);
