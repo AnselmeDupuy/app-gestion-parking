@@ -33,5 +33,17 @@ function logAction(PDO $pdo, string $action, ?string $details = "no details"): v
     $stmt->execute();
     $stmt->closeCursor();
 
-    
+        
+
+    $logLine = sprintf(
+        "[%s] IP: %s | User: %s | Action: %s | Details: %s | UA: %s\n",
+        date('Y-m-d H:i:s'),
+        $ip,
+        $userId,
+        $action,
+        $details,
+        $userAgent
+    );
+
+    file_put_contents(__DIR__ . '/../logs/actions.log', $logLine, FILE_APPEND | LOCK_EX);
 }
