@@ -4,6 +4,11 @@
     <h1 class="text-center">Users list</h1>
 </div>
 
+<form class="d-flex users-search" role="search" action="index.php?component=users" method="post">
+        <input class="form-control me-2" type="search" placeholder="Search a user" aria-label="Search" name="search" value="<?php echo (isset($_POST['search'])) ? cleanString($_POST['search']) : '';?>">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+
 <div class="row users-list">
     <table class="table table-bordered ">
         <thead>
@@ -37,9 +42,6 @@
                         </a>
                     </td>
                     <td><?php if($user['group_id'] === 1){echo 'user';} else {echo 'admin';};?></td>
-
-
-                    
                 </tr>
 
             <?php endforeach; ?>

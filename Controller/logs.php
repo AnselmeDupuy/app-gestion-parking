@@ -4,8 +4,8 @@
  */
 require "Model/logs.php";
 
-
-$logs = getAll($pdo);
+$search = isset($_POST['search']) ? cleanString($_POST['search']) : null;
+$logs = getAll($pdo, $search);
 
 
 

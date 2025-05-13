@@ -16,6 +16,8 @@
             navbarLinks.innerHTML += `<a href="index.php?component=home">Home</a>`
             navbarLinks.innerHTML += `<a href="index.php?component=logs">Logs</a>`
             navbarLinks.innerHTML += `<a href="index.php?component=users">Users</a>`
+            navbarLinks.innerHTML += `<a href="index.php?component=dashboard">DashBoard</a>`
+            navbarLinks.innerHTML += `<a href="index.php?component=profile">Profile</a>`
             navbarLinks.innerHTML += `<a href="index.php?component=home&disconnect=true">Logout</a>`
         } else if (isUser(user)) {
             navbarLinks.innerHTML += `<a href="index.php?component=home">Home</a>`

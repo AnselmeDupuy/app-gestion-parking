@@ -12,9 +12,11 @@
     <p class="card-text">Email : <?php echo $user['email'] ?></p>
     <p class="card-text">Phone number : <?php echo $user['phone'] ?></p>
     <p class="card-text">Inscription Date : <?php echo $user['created_at'] ?></p>
-    <p class="card-text">Group : <?php echo ($user['group_id']) ? 'admin' : 'user' ?></p>
-    <a href="#" class="btn btn-primary">Edit Profile</a>
-  </div>
+    <p class="card-text">Group : <?php if($user['group_id'] === 1){echo 'user';} else {echo 'admin';}; ?></p>
+    <form method="post">
+    <button type="submit" class="btn btn-primary" name="edit-profile">Edit Profile</button>
+  </form>
+</div>
 </div>
 
 <div class="card profile-card card-history">

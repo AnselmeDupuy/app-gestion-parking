@@ -1,5 +1,4 @@
-<a href="home">Home Page</a>
-<a href="LIEN VERS FORMULAIRE CONTACT">Contact Us</a>
 
 
-<a class="dropdown-item" href="index.php?disconnect=true">Disconnect</a>
+<a href="index.php?component=home">Home</a>
+<a href="#">Contact Us</a>

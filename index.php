@@ -9,7 +9,7 @@
 
     
     $adminPages = ['users', 'logs'];
-    $userPages = ['profile', 'dashboard', 'reservation'];
+    $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile'];
     $guestPages = ['home', 'login', 'inscription', 'contact'];
     $publicPages = ['home', 'login', 'inscription', 'contact'];
 
