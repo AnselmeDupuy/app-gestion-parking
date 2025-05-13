@@ -33,3 +33,6 @@ gestion profil users:
     - users peuvent voir leurs historique de reservations, et accès info de facturation
     - admin peux gerer les profiles users
 
+
+
+https://excalidraw.com/
