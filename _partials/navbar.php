@@ -1,4 +1,3 @@
-<link href="includes/componentsCss/partials.css" rel="stylesheet">
     <h2>ParkingSpot Manager</h2>
     <nav class="navbarLinks">
 
@@ -13,22 +12,22 @@
         const navbarLinks = document.querySelector('.navbarLinks')
 
         if (isAdmin(user)) {
-            navbarLinks.innerHTML += `<a href="index/home">Home</a>`
-            navbarLinks.innerHTML += `<a href="index/logs">Logs</a>`
-            navbarLinks.innerHTML += `<a href="index/users">Users</a>`
-            navbarLinks.innerHTML += `<a href="index/dashboard">DashBoard</a>`
-            navbarLinks.innerHTML += `<a href="index/profile">Profile</a>`
-            navbarLinks.innerHTML += `<a href="index/home&disconnect=true">Logout</a>`
+            navbarLinks.innerHTML += `<a href="home">Home</a>`
+            navbarLinks.innerHTML += `<a href="logs">Logs</a>`
+            navbarLinks.innerHTML += `<a href="users">Users</a>`
+            navbarLinks.innerHTML += `<a href="dashboard">DashBoard</a>`
+            navbarLinks.innerHTML += `<a href="profile">Profile</a>`
+            navbarLinks.innerHTML += `<a href="home&disconnect=true">Logout</a>`
         } else if (isUser(user)) {
-            navbarLinks.innerHTML += `<a href="index/home">Home</a>`
-            navbarLinks.innerHTML += `<a href="index/dashboard">DashBoard</a>`
-            navbarLinks.innerHTML += `<a href="index/profile">Profile</a>`
-            navbarLinks.innerHTML += `<a href="index/home&disconnect=true">Logout</a>`
+            navbarLinks.innerHTML += `<a href="home">Home</a>`
+            navbarLinks.innerHTML += `<a href="dashboard">DashBoard</a>`
+            navbarLinks.innerHTML += `<a href="profile">Profile</a>`
+            navbarLinks.innerHTML += `<a href="home&disconnect=true">Logout</a>`
         } else if (isGuest(user)) {
-            navbarLinks.innerHTML += `<a href="index.php/home">Home</a>`
-            navbarLinks.innerHTML += `<a href="index/inscription">Register</a>`
-            navbarLinks.innerHTML += `<a href="index/login">Login</a>`
-            navbarLinks.innerHTML += `<a href="index/contact">Contact</a>`
+            navbarLinks.innerHTML += `<a href="home">Home</a>`
+            navbarLinks.innerHTML += `<a href="inscription">Register</a>`
+            navbarLinks.innerHTML += `<a href="login">Login</a>`
+            navbarLinks.innerHTML += `<a href="contact">Contact</a>`
         }
     })
 </script>

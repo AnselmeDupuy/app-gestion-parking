@@ -29,7 +29,7 @@ if (isset($_POST["login_button"])) {
                 $details = "Login successful";
                 logAction($pdo, $action, $details);
 
-                header("Location: index.php");
+                header("Location: home");
 
                 exit();
             } elseif ($user['is_active'] !== 1 && $isMatchPassword && is_array($user)){

@@ -17,7 +17,7 @@ function addUser(PDO $pdo, $password, $email, $phone, $firstName, $lastName){
                 $stmt->execute();
                 $stmt->closeCursor();
 
-                header("Location: index.php");
+                header("Location: home");
                 return true;
             } catch (Exception $e) {
                 $errors[] = "Error adding user: " . $e->getMessage();

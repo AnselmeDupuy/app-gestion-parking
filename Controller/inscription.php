@@ -35,7 +35,7 @@ if (isset($_POST["create_user_button"])) {
 
 
         if ($newUser === true) {
-            header("Location: index.php");
+            header("Location: home");
             exit();
         } else {
             $errors[] = $newUser;

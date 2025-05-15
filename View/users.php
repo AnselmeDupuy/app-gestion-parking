@@ -33,7 +33,7 @@
                     <td><?php echo $user['phone']; ?></td>
                     <td>
                         <a
-                            href="index.php?component=users&action=toggle_enabled&id=<?php echo $user['id'];?>">
+                            href="users&action=toggle_enabled&id=<?php echo $user['id'];?>">
                             <i
                                 class="fa-solid <?php echo ($user['is_active'])
                                 ? 'fa-circle-check text-success'

@@ -1,13 +1,7 @@
 # Enable Rewrite Engine
 RewriteEngine On
 
-# Redirect requests like /index.php/componentName to /index.php?component=componentName
+# Redirect /home to /index.php?component=home
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^index\.php/([^/]+)/?$ index.php?component=$1 [L,QSA]
-
-# Optional: Redirect requests like /componentName to /index.php?component=componentName
 RewriteRule ^([^/]+)/?$ index.php?component=$1 [L,QSA]
-
-RewriteCond %{QUERY_STRING} ^component=([^&]+)$
-RewriteRule ^index\.php$ /index.php/%1? [R=301,L]
