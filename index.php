@@ -6,6 +6,7 @@
     require  './vendor/autoload.php';
     $dotenv = Dotenv\Dotenv::createImmutable(".");
     $dotenv->safeLoad();
+    $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
 
     
     $adminPages = ['users', 'logs'];
@@ -32,10 +33,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
-
+    <base href="<?php echo $basePath; ?>">
     <link rel="stylesheet" href="includes/fontawesome-free-6.7.1-web/css/all.min.css"/>
     <link href="includes/css/bootstrap.min.css" rel="stylesheet">
+    <link href="includes/componentsCss/components.css" rel="stylesheet">
 
     <title>Parking Management</title>
 </head>

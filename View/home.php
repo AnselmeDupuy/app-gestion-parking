@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="includes\componentsCss\home.css">
+<!-- <link rel="stylesheet" href="includes\componentsCss\home.css"> -->
 
 <div class="homeBody">
   <section class="description">

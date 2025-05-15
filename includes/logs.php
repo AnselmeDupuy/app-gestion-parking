@@ -45,5 +45,5 @@ function logAction(PDO $pdo, string $action, ?string $details = "no details"): v
         $userAgent
     );
 
-    file_put_contents('/var/www/logs/actions.log', $logLine, FILE_APPEND | LOCK_EX);
+    // file_put_contents('/var/www/logs/actions.log', $logLine, FILE_APPEND | LOCK_EX);
 }

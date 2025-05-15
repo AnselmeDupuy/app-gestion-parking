@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="includes/componentsCss/inscription.css">
+<!-- <link rel="stylesheet" href="includes/componentsCss/inscription.css"> -->
 
 <form class="inscription-form" method="post">
   <div class="mb-3">

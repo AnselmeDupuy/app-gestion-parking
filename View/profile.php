@@ -1,4 +1,4 @@
-<link href="includes/componentsCss/profile.css" rel="stylesheet">
+<!-- <link href="includes/componentsCss/profile.css" rel="stylesheet"> -->
 
 <div class="card-group">
 <div class="card profile-card">

@@ -1,4 +1,4 @@
-<link href="includes/componentsCss/logs.css" rel="stylesheet">
+<!-- <link href="includes/componentsCss/logs.css" rel="stylesheet"> -->
 
 
 <form class="d-flex mb-3 logs-search" role="search" action="index.php?component=logs" method="post">
