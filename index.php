@@ -23,7 +23,7 @@
     $errors = [];
     if(isset($_GET["disconnect"])) {
         session_destroy();
-        header("Location: index.php");
+        header("Location: home");
         exit();
     }
 
@@ -72,7 +72,7 @@
                 if (isGuest() || isUser() || isAdmin()) {
                     require "Controller/$componentName.php";
                 } else {
-                    header("Location: index.php?component=home");
+                    header("Location: home");
                     exit();
                 }
 

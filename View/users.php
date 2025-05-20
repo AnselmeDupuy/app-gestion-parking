@@ -10,7 +10,7 @@
 </form>
 
 <div class="row users-list">
-    <table class="table table-bordered ">
+    <table class="table table-bordered table-users">
         <thead>
         <tr>
             <th scope="col">#</th>
