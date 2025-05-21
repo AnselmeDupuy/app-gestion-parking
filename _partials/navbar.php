@@ -27,7 +27,7 @@
             navbarLinks.innerHTML += `<a href="home">Home</a>`
             navbarLinks.innerHTML += `<a href="inscription">Register</a>`
             navbarLinks.innerHTML += `<a href="login">Login</a>`
-            navbarLinks.innerHTML += `<a href="contact">Contact</a>`
+            navbarLinks.innerHTML += `<a href="reservation">Contact</a>`
         }
     })
 </script>

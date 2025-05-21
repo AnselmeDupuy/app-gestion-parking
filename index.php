@@ -7,12 +7,12 @@
     $dotenv = Dotenv\Dotenv::createImmutable(".");
     $dotenv->safeLoad();
     $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
+    var_dump($basePath); //DEBUG
 
     
     $adminPages = ['users', 'logs'];
-    $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile'];
-    $guestPages = ['home', 'login', 'inscription', 'contact'];
-    $publicPages = ['home', 'login', 'inscription', 'contact'];
+    $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile', 'reservation'];
+    $guestPages = ['home', 'login', 'inscription', 'contact', 'admin-login'];
 
     // var_dump($_SESSION); //DEBUG
     // var_dump($_SERVER['REQUEST_URI']); //DEBUG
