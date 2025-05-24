@@ -1,5 +1,3 @@
-<!-- <link rel="stylesheet" href="includes\componentsCss\home.css"> -->
-
 <div class="homeBody">
   <section class="description">
     <h1>Manage Your Parking Efficiently</h1>

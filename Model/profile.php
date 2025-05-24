@@ -12,16 +12,22 @@ function getUserById(PDO $pdo, int $id)
     }
 }
 
-function getCarsByUser(PDO $pdo, int $id, ?string $search = null)
+function getCarsByUser(PDO $pdo, int $id, ?string $search = null, ?string $sortby = null)
 {
     try{
         $query = 'SELECT * FROM `cars` WHERE `user_id` = :id';
         if ($search !== null) {
             $query .= ' AND id LIKE :search OR brand LIKE :search OR model LIKE :search OR color LIKE :search OR plate_number LIKE :search';
         }
+        if($sortby !== null) {
+            $query .= " ORDER BY $sortby";
+        }
         $res = $pdo->prepare($query);
         if ($search !== null) {
             $res->bindValue(':search', "%$search%");
+        }
+        if ($sortby !== null) {
+            $res->bindValue(':sortby', "%$sortby%");
         }
         $res->bindValue(':id', $id, PDO::PARAM_INT);
         $res->execute();

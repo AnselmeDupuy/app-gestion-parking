@@ -27,7 +27,7 @@ if (isset($_POST["login_button"])) {
                 $_SESSION['phone'] = $user['phone'];
 
                 $details = "Login successful";
-                logAction($pdo, $action, $details);
+                logAction($pdo, $action, $details." ".$_SESSION['email']);
 
                 header("Location: home");
 

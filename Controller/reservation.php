@@ -3,12 +3,12 @@
  * @var PDO $pdo
  */
 require "Model/reservation.php";
+require "Model/parkings.php";
 
-getFreeParkings($pdo);
+$freeParkings = getFreeParkings($pdo);
 $parkings = getAllParkings($pdo);
-getElectricParkings($pdo);
-getHandiParkings($pdo);
-
+$electricParkings = getElectricParkings($pdo);
+$handiParkings = getHandiParkings($pdo);
 
 
 require "View/reservation.php";

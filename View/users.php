@@ -32,6 +32,7 @@
                     <td><?php echo $user['surName']; ?></td>
                     <td><?php echo $user['phone']; ?></td>
                     <td>
+                        <?php if($user['id'] !== $_SESSION['user_id']) : ?>
                         <a
                             href="users&action=toggle_enabled&id=<?php echo $user['id'];?>">
                             <i
@@ -40,7 +41,16 @@
                                 : 'fa-circle-xmark text-danger' ?>">
                             </i>
                         </a>
+                        <?php else: ?>
+                            <i
+                                title="Impossible de désactiver votre compte"
+                                class="fa-solid <?php echo ($user['is_active'])
+                                ? 'fa-circle-check text-success'
+                                : 'fa-circle-xmark text-danger' ?>">
+                            </i>
+                        <?php endif ?>
                     </td>
+
                     <td><?php if($user['group_id'] === 1){echo 'user';} else {echo 'admin';};?></td>
                 </tr>
 
@@ -49,4 +59,15 @@
         </tbody>
     </table>
 </div>
+<!-- <script type="module">
+    fetch('Controller/users.php')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+        
 
+</script> -->

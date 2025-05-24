@@ -7,21 +7,16 @@
     $dotenv = Dotenv\Dotenv::createImmutable(".");
     $dotenv->safeLoad();
     $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
-    var_dump($basePath); //DEBUG
-
-    
-    $adminPages = ['users', 'logs'];
-    $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile', 'reservation'];
+ 
+    $adminPages = ['users', 'logs', 'reservation', 'parkings'];
+    $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile'];
     $guestPages = ['home', 'login', 'inscription', 'contact', 'admin-login'];
-
-    // var_dump($_SESSION); //DEBUG
-    // var_dump($_SERVER['REQUEST_URI']); //DEBUG
-
 
     require "includes/database.php";
 
     $errors = [];
     if(isset($_GET["disconnect"])) {
+        logAction($pdo , "User disconnected", $_SESSION['email']." disconnected from the site");
         session_destroy();
         header("Location: home");
         exit();
@@ -49,6 +44,7 @@
             $componentName = isset($_GET["component"]) ? cleanString($_GET["component"]) : "home";
 
             if (!file_exists("Controller/$componentName.php")) {
+                    logAction($pdo , "Accessed site", 'accessed $_GET["component"]');
                 $componentName = "home";
             }
 

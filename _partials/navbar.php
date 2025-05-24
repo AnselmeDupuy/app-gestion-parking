@@ -17,6 +17,7 @@
             navbarLinks.innerHTML += `<a href="users">Users</a>`
             navbarLinks.innerHTML += `<a href="dashboard">DashBoard</a>`
             navbarLinks.innerHTML += `<a href="profile">Profile</a>`
+            navbarLinks.innerHTML += `<a href="parkings">Parking Spots</a>`
             navbarLinks.innerHTML += `<a href="home&disconnect=true">Logout</a>`
         } else if (isUser(user)) {
             navbarLinks.innerHTML += `<a href="home">Home</a>`
@@ -27,7 +28,7 @@
             navbarLinks.innerHTML += `<a href="home">Home</a>`
             navbarLinks.innerHTML += `<a href="inscription">Register</a>`
             navbarLinks.innerHTML += `<a href="login">Login</a>`
-            navbarLinks.innerHTML += `<a href="reservation">Contact</a>`
+            navbarLinks.innerHTML += `<a href="#">Contact</a>`
         }
     })
 </script>
