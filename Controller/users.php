@@ -14,9 +14,9 @@ var_dump($usersCount);
 if(isset($_GET['action']) && ($_GET['action'] === 'toggle_enabled')) 
 {
     $user = getUserById($pdo, $_GET['id']);
-    logAction($pdo, 'Activating/deactivating account', "admin : ".$_SESSION['user_id']." used action on user: ".$user['id']." state: ".$user['is_active']);
     toggle_enabled($pdo, $user['id']);
     header('Location: users');
+    logAction($pdo, 'Activating/deactivating account', "admin : ".$_SESSION['user_id']." used action on user: ".$user['id']." state: ".($user['is_active'] ? 'inactive' : 'active'));
     exit();
 }
 

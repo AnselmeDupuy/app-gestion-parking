@@ -30,7 +30,7 @@ if (isset($_POST["create_user_button"])) {
         $password = password_hash($password, PASSWORD_DEFAULT);
         $newUser = addUser($pdo, $password, $email, $phone, $firstName, $lastName);
 
-        $details = !empty($newUser) ? "User created successfully" : "User creation failed";
+        $details = !empty($newUser) ? $email."User created successfully" : $email."User creation failed";
         logAction($pdo, $action, $details);
 
 
@@ -39,7 +39,7 @@ if (isset($_POST["create_user_button"])) {
             exit();
         } else {
             $errors[] = $newUser;
-            $details = !empty($newUser) ? "User creation failed" : "User created successfully";
+            $details = !empty($newUser) ? $email."User creation failed" : $email."User created successfully";
             logAction($pdo, $action, $details);
         }
     } else {

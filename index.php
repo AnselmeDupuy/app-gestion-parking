@@ -16,7 +16,7 @@
 
     $errors = [];
     if(isset($_GET["disconnect"])) {
-        logAction($pdo , "User disconnected", $_SESSION['email']." disconnected from the site");
+        logAction($pdo , "Logout", $_SESSION['email']." disconnected from the site");
         session_destroy();
         header("Location: home");
         exit();
@@ -45,7 +45,7 @@
 
             if (!file_exists("Controller/$componentName.php")) {
                     logAction($pdo , "Accessed site", 'accessed $_GET["component"]');
-                $componentName = "home";
+                $componentName = "home";                                                // A CHANGER!
             }
 
             if (in_array($componentName, $adminPages)) {

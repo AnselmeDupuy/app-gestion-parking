@@ -21,7 +21,7 @@ function getAll(PDO $pdo, ?string $search = null)
 function countUsers(PDO $pdo)
 {
     try {
-        $res = $pdo->query('SELECT COUNT(*) FROM `users`');
+        $res = $pdo->query('SELECT COUNT(*) AS usersCount FROM `users`');
         return $res->fetch();
     } catch (Exception $e) {
         $errors[] = "get all users issue";
