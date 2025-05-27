@@ -1,6 +1,14 @@
 <?php
     session_start();
 
+
+
+    function customError($errno, $errstr) {
+        echo "<b>Error:</b> [$errno] $errstr";
+    }
+
+    set_error_handler("customError", E_ALL);
+
     require "includes/function.php";
     require "includes/logs.php";
     require  './vendor/autoload.php';
@@ -8,11 +16,32 @@
     $dotenv->safeLoad();
     $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
  
-    $adminPages = ['users', 'logs', 'reservation', 'parkings'];
-    $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile'];
+    $adminPages = ['users', 'logs', 'reservation', 'parkings', 'profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login'];
+    $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login'];
     $guestPages = ['home', 'login', 'inscription', 'contact', 'admin-login'];
 
     require "includes/database.php";
+
+    $componentName = isset($_GET["component"]) ? cleanString($_GET["component"]) : "home";
+
+    if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
+
+            if (!file_exists("Controller/$componentName.php")) {
+                http_response_code(403);
+                header('Location: home');
+            }
+
+            if (isAdmin()) {
+                    controller($componentName, $adminPages);
+            } elseif (isUser() || isAdmin()) {
+                    controller($componentName, $userPages);
+            } elseif (isGuest() || isUser() || isAdmin()) {
+                controller($componentName, $guestPages);
+            } else {
+                logAction($pdo , "Access Denied", 'Tried to access '.$componentName.' without permission');
+                exit();
+            } 
+    }
 
     $errors = [];
     if(isset($_GET["disconnect"])) {
@@ -41,40 +70,20 @@
     </header>
     <main>
         <?php
-            $componentName = isset($_GET["component"]) ? cleanString($_GET["component"]) : "home";
 
             if (!file_exists("Controller/$componentName.php")) {
-                    logAction($pdo , "Accessed site", 'accessed $_GET["component"]');
-                $componentName = "home";                                                // A CHANGER!
             }
 
-            if (in_array($componentName, $adminPages)) {
-                if (isAdmin()) {
-                    require "Controller/$componentName.php";
-                } else {
-                    $errors[] = "Access denied: Admin only.";
-                    require "Controller/home.php";
-                }
-
-            } elseif (in_array($componentName, $userPages)) {
-                if (isUser() || isAdmin()) {
-                    require "Controller/$componentName.php";
-                } else {
-                    $errors[] = "You must be logged in to access this page.";
-                    require "Controller/home.php";
-                }
-
-            } elseif (in_array($componentName, $guestPages)) {
-                if (isGuest() || isUser() || isAdmin()) {
-                    require "Controller/$componentName.php";
-                } else {
-                    header("Location: home");
-                    exit();
-                }
-
+            if (isAdmin()) {
+                    controller($componentName, $adminPages);
+            } elseif (isUser() || isAdmin()) {
+                    controller($componentName, $userPages);
+            } elseif (isGuest() || isUser() || isAdmin()) {
+                controller($componentName, $guestPages);
             } else {
-                require "Controller/home.php";
-            }
+                logAction($pdo , "Access Denied", 'Tried to access '.$componentName.' without permission');
+                exit();
+            } 
         ?>
     </main>
     <footer>

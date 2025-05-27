@@ -1,4 +1,5 @@
 <?php
+global $pdo;
 /**
  * @var PDO $pdo
  */
@@ -9,7 +10,7 @@ $search = isset($_POST['search']) ? cleanString($_POST['search']) : null;
 $users = getAll($pdo,  $search);
 $usersCount = countUsers($pdo);
 
-var_dump($usersCount); 
+// var_dump($usersCount); 
 
 if(isset($_GET['action']) && ($_GET['action'] === 'toggle_enabled')) 
 {

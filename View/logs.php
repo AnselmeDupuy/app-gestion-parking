@@ -1,7 +1,7 @@
 
 
 <form class="d-flex mb-3 logs-search" role="search" action="logs" method="get">
-    <input class="form-control me-2 logs-search-input" type="search" placeholder="Search logs" aria-label="Search" name="search" value="<?php echo isset($_POST['search']) ? cleanString($_POST['search']) : ''; ?>">
+    <input class="form-control me-2 logs-search-input" type="search" placeholder="Search logs" aria-label="Search" name="search" value="<?php echo isset($_GET['search']) ? cleanString($_GET['search']) : ''; ?>">
     <button class="btn btn-outline-success logs-search-button" type="submit">Search</button>
 </form>
 
@@ -38,10 +38,8 @@
     const logsContainer = document.getElementById('table-body-logs')
     const paginationContainer = document.querySelector('.pagination-logs')
 
-
-
-
-    getLogs(logsContainer, paginationContainer)
+    const logs = getLogs(logsContainer, paginationContainer)
+    console.log(logs)
 
     })
 </script>

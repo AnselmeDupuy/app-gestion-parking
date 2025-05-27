@@ -1,4 +1,5 @@
 <?php
+global $pdo;
 /**
  * @var PDO $pdo
  */

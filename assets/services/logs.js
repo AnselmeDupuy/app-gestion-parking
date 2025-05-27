@@ -1,22 +1,17 @@
 export const getLogs = async (logsContainer, paginationContainer, page = 1, search = '') => {
-    try {
-        const response = await fetch(`logs?ajax=true&page=${page}&search=${encodeURIComponent(search)}`, {
+
+        const response = await fetch(`logs?page=${page}&search=${encodeURIComponent(search)}`, {
             method: 'GET',
             headers: {
-                'accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
             },
         })
-        const data = await response.json()
 
-        const pages = getPageCount(data.logCount)
+        return await response.json()
 
-        generateLogs(logsContainer, data.logs)
-        updatePagination(pages, paginationContainer)
+        generateLogs(response.logs, logsContainer)
+        updatePagination(getPageCount(response.logCount), paginationContainer)
         
-
-    } catch (e) {
-        console.log('Error fetching logs:', e)
-    }
 } 
 
 const generateLogs = (logs, logsContainer) => {
