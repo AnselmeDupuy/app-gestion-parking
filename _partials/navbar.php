@@ -6,7 +6,7 @@
     import { getUser, isAdmin, isUser, isGuest } from "./assets/services/navBar.js"
 
     const user = "<?php echo isset($_SESSION['group']) ? $_SESSION['group'] : 'guest'; ?>"
-    console.log(user);
+    console.log(user)
 
     document.addEventListener('DOMContentLoaded', async () => {
         const navbarLinks = document.querySelector('.navbarLinks')

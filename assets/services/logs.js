@@ -7,14 +7,23 @@ export const getLogs = async (logsContainer, paginationContainer, page = 1, sear
             },
         })
 
-        return await response.json()
+        if (!response.ok) {
+            throw new Error(`Error fetching logs: ' + ${response.status}`)
+        }
 
-        generateLogs(response.logs, logsContainer)
-        updatePagination(getPageCount(response.logCount), paginationContainer)
+        const data =  await response.json()
+
+        generateLogs(data.logs, logsContainer)
+
+        updatePagination(data.logCount, paginationContainer, page, logsContainer, search)
+
+
+
         
 } 
 
 const generateLogs = (logs, logsContainer) => {
+    logsContainer.innerHTML = ''
 
     logs.forEach(logs => {
     const row = `
@@ -32,29 +41,31 @@ const generateLogs = (logs, logsContainer) => {
 }
 
 const getPageCount = (logCount) => {
-    return Math.ceil(logCount / 20)
+    return Math.ceil(logCount / 10)
 }
 
 
-export const updatePagination = (pages, paginationContainer) => {
-
+export const updatePagination = (pages, paginationContainer, currentPage, logsContainer, search) => {
+    const pageCount = getPageCount(pages)
 
     paginationContainer.innerHTML = ''
 
-    // paginationContainer.document.createElement('li').classList.add('page-item')
-    // paginationContainer.innerHTML = `<a class="page-link" href="#" data-page="">previous</a>`
-
-    for (let i = 1; i <= pages; i++) {
+    for (let i = 1; i <= pageCount; i++) {
         const pageItem = document.createElement('li')
         pageItem.classList.add('page-item')
-        pageItem.innerHTML = `<a class="page-link" href="" data-page="${i}">${i}</a>`
-        paginationContainer.appendChild(pageItem)
-    
-        if (i === 1) {
+        if (i === currentPage) {
             pageItem.classList.add('active')
         }
+
+        pageItem.innerHTML = `<a class="page-link" href="#" data-page="${i}">${i}</a>`
+        paginationContainer.appendChild(pageItem)
+        
+        pageItem.querySelector('.page-link').addEventListener('click', (e) => {
+            e.preventDefault()
+            const selectedPage = parseInt(e.target.getAttribute('data-page'))
+            getLogs(logsContainer, paginationContainer, selectedPage, search)
+        })
+
+
     }
-    // const nextPageItem = document.createElement('li')
-    // nextPageItem.classList.add('page-item')
-    // nextPageItem.innerHTML = `<a class="page-link" href="#" data-page="">next</a>`
 }

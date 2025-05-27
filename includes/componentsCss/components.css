@@ -87,19 +87,17 @@ a.logout {
 
 }
 
-/* .logs-search-input {
-    border-bottom: none;
-} */
-
-/* .logs-search-button {
-    
-} */
-
 .table-logs{
     margin-left: 7.5%;
     max-width: 85%;
 }
 
+.pagination-logs{
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+}
 
 
 /* CSS for the partials */

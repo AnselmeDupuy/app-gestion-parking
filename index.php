@@ -15,6 +15,7 @@
     $dotenv = Dotenv\Dotenv::createImmutable(".");
     $dotenv->safeLoad();
     $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
+    
  
     $adminPages = ['users', 'logs', 'reservation', 'parkings', 'profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login'];
     $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login'];

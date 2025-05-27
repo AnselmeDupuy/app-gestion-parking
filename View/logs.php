@@ -34,14 +34,23 @@
 <script type="module">
     import { getLogs } from './assets/services/logs.js'
     document.addEventListener('DOMContentLoaded', async () => {
+
     
     const logsContainer = document.getElementById('table-body-logs')
     const paginationContainer = document.querySelector('.pagination-logs')
+    const searchInput = document.querySelector('.logs-search-input')
+    const searchButton = document.querySelector('.logs-search-button')
 
-    const logs = getLogs(logsContainer, paginationContainer)
-    console.log(logs)
+    const initialSearch = searchInput.value.trim()
+    const logs = await getLogs(logsContainer, paginationContainer, 1, initialSearch)
 
+    searchButton.addEventListener('click', async (e) => {
+        e.preventDefault()
+        const search = searchInput.value.trim()
+        await getLogs(logsContainer, paginationContainer, 1 ,search)
     })
+
+})
 </script>
 
 
