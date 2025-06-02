@@ -36,11 +36,11 @@ if (isset($_POST["login_button"])) {
             } elseif ($user['is_active'] !== 1 && $isMatchPassword && is_array($user)){
                 $errors[] = "account is inactive";
                 $details = "Login attempt failed, account is inactive";
-                logAction($pdo, $action, $details);
+                logAction($pdo, $action, $details." ".$user['email']);
             } else {
                 $errors[] = "authentication failed, invalid password";
                 $details = "Login attempt failed, invalid password";
-                logAction($pdo, $action, $details);
+                logAction($pdo, $action, $details." ".$user['email']);
             }
         } else {
             $errors[] = "user invalid";

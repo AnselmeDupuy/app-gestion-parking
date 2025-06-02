@@ -18,9 +18,9 @@
     </tr>
 </thead>
 
-<tbody id='table-body-logs'>
+    <tbody id='table-body-logs'>
 
-</tbody>
+    </tbody>
 
 
 </table>
@@ -35,7 +35,6 @@
     import { getLogs } from './assets/services/logs.js'
     document.addEventListener('DOMContentLoaded', async () => {
 
-    
     const logsContainer = document.getElementById('table-body-logs')
     const paginationContainer = document.querySelector('.pagination-logs')
     const searchInput = document.querySelector('.logs-search-input')

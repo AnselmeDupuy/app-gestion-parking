@@ -39,7 +39,8 @@
             } elseif (isGuest() || isUser() || isAdmin()) {
                 controller($componentName, $guestPages);
             } else {
-                logAction($pdo , "Access Denied", 'Tried to access '.$componentName.' without permission');
+                http_response_code(403);
+                header('Location: home');
                 exit();
             } 
     }
@@ -73,6 +74,8 @@
         <?php
 
             if (!file_exists("Controller/$componentName.php")) {
+                http_response_code(403);
+                header('Location: home');
             }
 
             if (isAdmin()) {
@@ -82,7 +85,8 @@
             } elseif (isGuest() || isUser() || isAdmin()) {
                 controller($componentName, $guestPages);
             } else {
-                logAction($pdo , "Access Denied", 'Tried to access '.$componentName.' without permission');
+                http_response_code(403);
+                header('Location: home');
                 exit();
             } 
         ?>

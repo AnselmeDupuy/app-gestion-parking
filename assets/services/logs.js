@@ -1,24 +1,21 @@
 export const getLogs = async (logsContainer, paginationContainer, page = 1, search = '') => {
 
-        const response = await fetch(`logs?page=${page}&search=${encodeURIComponent(search)}`, {
-            method: 'GET',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-            },
-        })
+    const response = await fetch(`logs?page=${page}&search=${encodeURIComponent(search)}`, {
+        method: 'GET',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+        },
+    })
 
-        if (!response.ok) {
-            throw new Error(`Error fetching logs: ' + ${response.status}`)
-        }
+    if (!response.ok) {
+        throw new Error(`Error fetching logs: ' + ${response.status}`)
+    }
 
-        const data =  await response.json()
+    const data =  await response.json()
 
-        generateLogs(data.logs, logsContainer)
+    generateLogs(data.logs, logsContainer)
 
-        updatePagination(data.logCount, paginationContainer, page, logsContainer, search)
-
-
-
+    updatePagination(data.logCount, paginationContainer, page, logsContainer, search)
         
 } 
 
@@ -30,7 +27,7 @@ const generateLogs = (logs, logsContainer) => {
         <tr>
             <td>${logs.id}</td>
             <td>${logs.user_id}</td>
-            <td>${logs.ip_address}</td>            
+            <td>${logs.client_ip}</td>            
             <td>${logs.user_agent}</td>
             <td>${logs.action}</td>
             <td>${logs.action_details}</td>

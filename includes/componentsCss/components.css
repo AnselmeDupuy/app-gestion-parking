@@ -148,6 +148,13 @@ footer a {
     max-width: 85%;
 }
 
+.pagination-users {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+}
+
 .users-search {
     margin-left: 7.5%;
     max-width: 85%;
