@@ -53,7 +53,8 @@ function toggle_enabled($pdo, $id)
         $res->bindValue(':id', $id, PDO::PARAM_INT);
         return $res->execute();
     } catch (Exception $e) {
-        $errors[] = "get all users issue";
+        $errors[] = "update users is_active issue";
+        return false;
     }
 }
 
@@ -62,9 +63,10 @@ function deleteUser($pdo, $id)
     try {
         $res = $pdo->prepare('DELETE FROM `users` WHERE `id` = :id');
         $res->bindValue(':id', $id, PDO::PARAM_INT);
-        return $res->execute();
+        return $res->rowCount();
     } catch (Exception $e) {
         $errors[] = "delete user issue";
+        return false;
     }
 }
 

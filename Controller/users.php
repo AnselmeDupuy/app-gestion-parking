@@ -18,13 +18,13 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
         } else {
             logAction($pdo, 'toggle_user_status', "Failed to deActivate/activate user ID: $id by admin: " . $_SESSION['user_id']);
             header('Content-Type: application/json', true, 500);
-            echo json_encode(['status' => 'error', 'message' => 'Failed to toggle user status.']);
+            echo json_encode(['status' => 'error', 'message' => 'Failed to update user status.']);
         }
         exit();
     } elseif (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id']) && is_numeric($_GET['id'])) {
         $id = cleanString($_GET['id']);
         $result = deleteUser($pdo, $id);
-        if ($result) {
+        if ($result > 0) {
             logAction($pdo, 'delete_user', "user $id deleted by admin: " . $_SESSION['user_id']);
             header('Content-Type: application/json');
             echo json_encode(['status' => 'success', 'message' => 'User deleted successfully.']);

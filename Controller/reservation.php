@@ -12,4 +12,5 @@ $electricParkings = getElectricParkings($pdo);
 $handiParkings = getHandiParkings($pdo);
 
 
+
 require "View/reservation.php";

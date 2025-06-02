@@ -1,6 +1,6 @@
 export const getUsers = async (userContainer, paginationContainer, page = 1, search = '') => {
 
-    const response = await fetch(`users?&page=${page}&search=${encodeURIComponent(search)}`, {
+    const response = await fetch(`users?page=${page}&search=${encodeURIComponent(search)}`, {
         method: 'GET',
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
@@ -28,7 +28,7 @@ export const deleteUser = async (userId) => {
     })
 
     if (!response.ok) {
-        throw new Error(`Error deleting user: ' + ${response.status}`)
+        throw new Error(`Error deleting user: ` + `${response.status}`)
     }
 
     const usersContainer = document.getElementById('table-body-users');
@@ -39,13 +39,17 @@ export const deleteUser = async (userId) => {
 
 }
 
-export const toggleUserActivation = async (userId, userContainer) => {
+export const toggleUserActivation = async (userId) => {
     const response = await fetch(`users?action=toggle&id=${userId}`, {
         method: 'GET',
         headers: {
             'X-Requested-With': 'XMLHttpRequest',
         },
     })
+
+    if (!response.ok) {
+        throw new Error(`Error deleting user: ` + `${response.status}`)
+    }
 
     const usersContainer = document.getElementById('table-body-users');
     const paginationContainer = document.querySelector('.pagination-users');
@@ -72,7 +76,7 @@ const userRow = `
         <td>${users.created_at}</td>
         <td>${users.is_active}</td>
         <td>
-            <button class="toggle-status-btn btn btn-sm ${users.is_active ? 'btn-danger' : 'btn-success'}" data-id="${users.id}">
+            <button class="toggle-status-btn btn btn-sm ${users.is_active ? 'btn-danger' : 'btn-success'}" data-id-active="${users.id}">
                 ${users.is_active ? 'Deactivate' : 'Activate'}
             </button>
         </td>
@@ -87,8 +91,8 @@ const userRow = `
 document.querySelectorAll('.toggle-status-btn').forEach(button => {
     button.addEventListener('click', async (e) => {
         e.preventDefault()
-        const userId = e.target.getAttribute('data-id')
-        await toggleUserActivation(userId, userContainer)
+        const userId = e.target.getAttribute('data-id-active')
+        await toggleUserActivation(userId)
     })
 })
 
