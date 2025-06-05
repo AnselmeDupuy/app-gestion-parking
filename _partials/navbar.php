@@ -13,8 +13,18 @@
 
         if (isAdmin(user)) {
             navbarLinks.innerHTML += `<a href="home">Home</a>`
-            navbarLinks.innerHTML += `<a href="logs">Logs</a>`
-            navbarLinks.innerHTML += `<a href="users">Users</a>`
+            navbarLinks.innerHTML += `<div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Admin panel
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="logs">Logs</a></li>
+                                                <li><a class="dropdown-item" href="users">Users</a></li>
+                                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                            </ul>
+                                       </div>`
+            navbarLinks.innerHTML += `<a href="reservations">Reservations</a>`
+            navbarLinks.innerHTML += `<a href="reservation">My reservation</a>`
             navbarLinks.innerHTML += `<a href="dashboard">DashBoard</a>`
             navbarLinks.innerHTML += `<a href="profile">Profile</a>`
             navbarLinks.innerHTML += `<a href="parkings">Parking Spots</a>`

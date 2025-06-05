@@ -20,12 +20,9 @@
         <tbody>
         <tr>
             <?php foreach($parkings as $parking): ?>
-                <tr>
-                    <td><?php echo $parking['place_number']; ?></td>
-                    <td><?php echo $parking['type']; ?></td>
-                    <td><?php echo $parking['status']; ?></td>
-                </tr>
-
+                <td><?php echo $parking['place_number']; ?></td>
+                <td><?php echo $parking['type']; ?></td>
+                <td><?php echo $parking['status']; ?></td>
             <?php endforeach; ?>
         </tr>
         </tbody>

@@ -1,8 +1,10 @@
 <div>
-    <table class="table table-bordered table-reservation">
+    <table class="table table-bordered">
         <thead>
             <tr>
-                <th scope="col">Reservation number</th>
+                <th scope="col">#</th>
+                <th scope="col">User ID</th>
+                <th scope="col">User Name</th>
                 <th scope="col">Parking_id</th>
                 <th scope="col">Car_id</th>
                 <th scope="col">Status</th>
@@ -18,6 +20,8 @@
                 <?php foreach($reservations as $reservation): ?>
                     <tr>
                     <td><?php echo $reservation['id']; ?></td>
+                    <td><?php echo $reservation['user_id']; ?></td>
+                    <td><?php echo $reservation['firstName']. ' '. $reservation['surName']; ?></td>
                     <td><?php echo $reservation['parking_id']; ?></td>
                     <td><?php echo $reservation['car_id']; ?></td>
                     <td><?php echo $reservation['status']; ?></td>

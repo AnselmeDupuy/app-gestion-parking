@@ -17,7 +17,7 @@
     $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
     
  
-    $adminPages = ['users', 'logs', 'reservation', 'parkings', 'profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login'];
+    $adminPages = ['users', 'logs', 'reservation', 'parkings', 'profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login', 'reservations', 'reservation'];
     $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login'];
     $guestPages = ['home', 'login', 'inscription', 'contact', 'admin-login'];
 
@@ -60,7 +60,7 @@
 <head>
     <meta charset="UTF-8">
     <base href="<?php echo $basePath; ?>">
-    <link rel="stylesheet" href="includes/fontawesome-free-6.7.1-web/css/all.min.css"/>
+    <link href="includes/fontawesome-free-6.7.1-web/css/all.min.css" rel="stylesheet">
     <link href="includes/css/bootstrap.min.css" rel="stylesheet">
     <link href="includes/componentsCss/components.css" rel="stylesheet">
 
@@ -94,6 +94,6 @@
     <footer>
         <?php require "_partials/footer.php"; ?>
     </footer>
-    <script src="includes/js/bootstrap.js"></script>
+    <script src="includes/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
