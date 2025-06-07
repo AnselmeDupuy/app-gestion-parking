@@ -1,5 +1,3 @@
-<!-- <link rel="stylesheet" href="includes/componentsCss/dashboard.css"> -->
-
 <div class="dashboardBody">
   <h1 class="dashBoardh1">Welcome, <?php echo $_SESSION['first_name'] ?>!</h1>
 
