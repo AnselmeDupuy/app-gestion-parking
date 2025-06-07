@@ -3,7 +3,7 @@ global $pdo;
 /**
  * @var PDO $pdo
  */
-require "Model/logs.php";
+require_once "Model/logs.php";
 
 
 if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {

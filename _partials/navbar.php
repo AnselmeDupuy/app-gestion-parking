@@ -20,7 +20,6 @@
                                             <ul class="dropdown-menu">
                                                 <li><a class="dropdown-item" href="logs">Logs</a></li>
                                                 <li><a class="dropdown-item" href="users">Users</a></li>
-                                                <li><a class="dropdown-item" href="#">Something else here</a></li>
                                             </ul>
                                        </div>`
             navbarLinks.innerHTML += `<a href="reservations">Reservations</a>`

@@ -3,7 +3,7 @@ global $pdo;
 /**
  * @var PDO $pdo
  */
-require "Model/login.php";
+require_once "Model/login.php";
 
 if (isset($_POST["login_button"])) {
     $action = 'login';

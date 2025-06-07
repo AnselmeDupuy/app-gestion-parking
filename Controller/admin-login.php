@@ -2,7 +2,7 @@
 /**
  * @var PDO $pdo
  */
-require "Model/admin-login.php";
+require_once "Model/admin-login.php";
 
 if (isset($_POST["login_button"])) {
     $action = 'login';

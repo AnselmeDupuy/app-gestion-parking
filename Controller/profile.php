@@ -3,7 +3,7 @@ global $pdo;
 /**
  * @var PDO $pdo
  */
-require "Model/profile.php";
+require_once "Model/profile.php";
 
 
 $user = getUserById($pdo, $_SESSION['user_id']);

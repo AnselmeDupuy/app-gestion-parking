@@ -3,7 +3,7 @@ global $pdo;
 /**
  * @var PDO $pdo
  */
-require "Model/reservations.php";
+require_once "Model/reservations.php";
 
 $reservations = getAllReservations($pdo);
 

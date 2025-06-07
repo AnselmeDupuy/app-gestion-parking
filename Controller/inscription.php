@@ -3,7 +3,7 @@ global $pdo;
 /**
  * @var PDO $pdo
  */
-require "Model/inscription.php";
+require_once "Model/inscription.php";
 
 $action = "inscription Form";
 

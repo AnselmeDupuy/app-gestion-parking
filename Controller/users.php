@@ -3,8 +3,8 @@ global $pdo;
 /**
  * @var PDO $pdo
  */
-require "Model/users.php";
-require "Model/profile.php";
+require_once "Model/users.php";
+require_once "Model/profile.php";
 
 if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
     

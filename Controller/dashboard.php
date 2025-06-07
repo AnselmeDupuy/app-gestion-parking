@@ -3,9 +3,10 @@ global $pdo;
 /**
  * @var PDO $pdo
  */
-require "Model/dashboard.php";
+require_once "Model/dashboard.php";
 
 $reservations = getReservationsByUser($pdo, $_SESSION['user_id']);
-var_dump($reservations);
+$freeSpots = getParkingSpotAvailable($pdo, date('Y-m-d H:i:s'));
+
 
 require "View/dashboard.php";

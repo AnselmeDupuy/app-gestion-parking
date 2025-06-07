@@ -3,7 +3,7 @@ global $pdo;
 /**
  * @var PDO $pdo
  */
-require "Model/parkings.php";
+require_once "Model/parkings.php";
 
 $freeParkings = getFreeParkings($pdo);
 $parkings = getAllParkings($pdo);

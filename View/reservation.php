@@ -1,71 +1,35 @@
-<div>
-    <table class="table table-bordered table-reservation">
-        <thead>
-            <tr>
-                <th scope="col">Reservation number</th>
-                <th scope="col">Parking_id</th>
-                <th scope="col">Car_id</th>
-                <th scope="col">Status</th>
-                <th scope="col">Start Date</th>
-                <th scope="col">End Date</th>
-                <th scope="col">Created At</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
+<form id="reservation-form" method="post">
+    <label for="reservation-date">Date de réservation:</label>
+    <input type="date" id="reservation-date" name="reservation_date" required>
 
-        <tbody id='table-body-reservations'>
-            
-                <?php foreach($reservations as $reservation): ?>
-                    <tr>
-                    <td><?php echo $reservation['id']; ?></td>
-                    <td><?php echo $reservation['parking_id']; ?></td>
-                    <td><?php echo $reservation['car_id']; ?></td>
-                    <td><?php echo $reservation['status']; ?></td>
-                    <td><?php echo $reservation['start_time']; ?></td>
-                    <td><?php echo $reservation['end_time']; ?></td>
-                    <td><?php echo $reservation['created_at']; ?></td>
-                    <td>place holder</td>
-                    </tr>
-                <?php endforeach; ?>
-        
-        </tbody>
-    </table>
-</div>
+    <label for="reservation-start-time">Heure de début:</label> 
+    <input type="time" id="reservation-start-time" name="reservation_start_time" step="1800" required>
+
+    <label for="reservation-end-time">Heure de fin:</label>
+    <input type="time" id="reservation-end-time" name="reservation_end_time" step="1800" required>
+
+    <label for="vehicle-select">Sélectionnez un véhicule:</label>
+    <select id="vehicle-select" name="vehicle_id" >
+        <?php foreach ($cars as $car): ?>
+            <option value="<?php echo $car['id']; ?>">
+                <?php echo htmlspecialchars($car['car_name']) . ' - ' . htmlspecialchars($car['license_plate']); ?>
+            </option>
+        <?php endforeach; ?>
+
+    </select>
+
+    <button type="submit" name="add_reservation">Réserver</button>
 
 <div id="paypal-button-container"></div>
 
-<script src="https://www.paypal.com/sdk/js?client-id=AcDfcUQ3_VogqxvnsGkdfKd5ey6twglEkCzbtBwZNkhW8rzeWr0BDeQ4uHUDfJaqvCSIzt0acdpN1pI1&components=buttons"></script>
-<script>
-paypal.Buttons({
-            style: {
-                layout: 'horizontal',
-                color: 'silver',
-                shape: 'pill',
-                label: 'pay'
-            },
-            createOrder: function(data, actions) {
-                return actions.order.create({
-                    purchase_units: [{
-                        amount: {
-                            value: parseFloat(priceDisplay.textContent.replace(",", ".")).toFixed(2)
-                        }
-                    }]
-                });
-            },
-            onApprove: function(data, actions) {
-                return actions.order.capture().then(function(details) {
-                    const reservationDate = document.getElementById("reservation-date").value;
-                    const reservationStartTime = document.getElementById("reservation-start-time").value;
-                    const reservationEndTime = document.getElementById("reservation-end-time").value;
-                    const vehicleSelect = document.getElementById("vehicle-select").value;
-
-                    if (!reservationDate || !reservationStartTime || !reservationEndTime || !vehicleSelect) {
-                        alert("Veuillez remplir tous les champs");
-                        return;
-                    }
-
-                    reserve(reservationDate, reservationStartTime, reservationEndTime, vehicleSelect);
-                });
-            }
-        }).render('#paypal-button-container');
+<script type="module">
+    import { addReservation } from './assets/services/reservation.js'
+    document.addEventListener('DOMContentLoaded', async () => {
+        const reservationForm = document.getElementById("reservation-form")
+        
+        document.getElementById("reservation-form").addEventListener("submit", async (e) => {
+            e.preventDefault()
+            addReservation(reservationForm)
+        })
+    })
 </script>

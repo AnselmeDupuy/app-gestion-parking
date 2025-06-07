@@ -22,6 +22,6 @@
   
   <div class="dashBoardCard">
     <h3>Available Spots</h3>
-    <p><?php echo $reservations['']; ?></p>
+    <p><?php echo $freeSpots; ?></p>
   </div>
 </div>

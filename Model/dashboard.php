@@ -1,32 +1,5 @@
 <?php
 
-function addReservation(PDO $pdo, int $userId, int $parkingId, string $startTime, string $endTime)
-{
-    try {
-        $res = $pdo->prepare('INSERT INTO `reservations` (`user_id`, `parking_id`, `start_time`, `end_time`) VALUES (:user_id, :parking_id, :start_time, :end_time)');
-        $res->bindValue(':user_id', $userId, PDO::PARAM_INT);
-        $res->bindValue(':parking_id', $parkingId, PDO::PARAM_INT);
-        $res->bindValue(':start_time', $startTime, PDO::PARAM_STR);
-        $res->bindValue(':end_time', $endTime, PDO::PARAM_STR);
-        return $res->execute();
-    } catch (Exception $e) {
-        echo 'Error: ' . $e->getMessage();
-        return false;
-    }
-}
-
-function cancelReservation(PDO $pdo, int $reservationId)
-{
-    try {
-        $res = $pdo->prepare('DELETE FROM `reservations` WHERE `id` = :id');
-        $res->bindValue(':id', $reservationId, PDO::PARAM_INT);
-        return $res->execute();
-    } catch (Exception $e) {
-        echo 'Error: ' . $e->getMessage();
-        return false;
-    }
-}
-
 function getReservationsByUser(PDO $pdo, int $userId)
 {
     try {
@@ -50,15 +23,30 @@ function getParkingSpotAvailable(PDO $pdo, string $startTime)
 {
     try {
         $res = $pdo->prepare(
-            'SELECT * FROM `parking` 
+            'SELECT count(*) AS count FROM `parkings` 
              WHERE `id` NOT IN (
                  SELECT `parking_id` FROM `reservations` 
-                 WHERE `start_time` <= :start_time
+                 WHERE `start_time` = :start_time
              )');
-        
+        $res2 = $pdo->prepare(
+            'SELECT * FROM `parkings` 
+             WHERE `id` NOT IN (
+                 SELECT `parking_id` FROM `reservations` 
+                 WHERE `start_time` = :start_time
+             )');
+
         $res->bindValue(':start_time', $startTime, PDO::PARAM_STR);
+        $res2->bindValue(':start_time', $startTime, PDO::PARAM_STR);
+
         $res->execute();
-        return $res->fetchAll();
+        $res2->execute();
+
+        $count = $res->fetch(PDO::FETCH_ASSOC)['count'];
+        $freeSpots = $res2->fetchAll(PDO::FETCH_ASSOC);
+        return [
+            'count' => $count,
+            'parkings' => $freeSpots
+        ];
     } catch (Exception $e) {
         error_log('Error: ' . $e->getMessage());
         return false;
