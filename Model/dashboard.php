@@ -5,9 +5,9 @@ function getReservationsByUser(PDO $pdo, int $userId)
     try {
         $res = $pdo->prepare(
             '                   SELECT reservations.*, cars.car_name, cars.license_plate
-                                FROM `reservations` 
+                                FROM `reservations`
                                 JOIN `cars` ON reservations.car_id  = cars.id  
-                                WHERE reservations.user_id = :user_id 
+                                WHERE reservations.user_id = :user_id AND reservations.status IN ("confirmed", "waiting")
                                 ORDER BY `start_time` ASC');
         
         $res->bindValue(':user_id', $userId, PDO::PARAM_INT);
@@ -19,24 +19,45 @@ function getReservationsByUser(PDO $pdo, int $userId)
     }
 }
 
-function getParkingSpotAvailable(PDO $pdo, string $startTime)
+function getParkingSpotAvailable(PDO $pdo, string $startTime, string $endTime, ?string $type = null)
 {
     try {
-        $res = $pdo->prepare(
-            'SELECT count(*) AS count FROM `parkings` 
-             WHERE `id` NOT IN (
-                 SELECT `parking_id` FROM `reservations` 
-                 WHERE `start_time` = :start_time
-             )');
-        $res2 = $pdo->prepare(
-            'SELECT * FROM `parkings` 
-             WHERE `id` NOT IN (
-                 SELECT `parking_id` FROM `reservations` 
-                 WHERE `start_time` = :start_time
-             )');
+        $query = 'SELECT count(*) AS count FROM `parkings` WHERE `status` = "free" AND `id` NOT IN (
+                    SELECT `parking_id` FROM `reservations` 
+                    WHERE `status` = "waiting"
+                    AND NOT (
+                        reservations.end_time <= :start_time
+                        OR reservations.start_time >= :end_time
+                    )
+                )';
+
+        $query2 = 'SELECT * FROM `parkings` WHERE `status` = "free" AND `id` NOT IN (
+                    SELECT `parking_id` FROM `reservations` 
+                    WHERE `status` = "waiting"
+                    AND NOT (
+                        reservations.end_time <= :start_time
+                        OR reservations.start_time >= :end_time
+                    )
+                )';
+        
+        if ($type !== null) {
+            $query .= ' AND `type` = :place_type';
+            $query2 .= ' AND `type` = :place_type';
+        }
+
+        $res = $pdo->prepare($query);
+        $res2 = $pdo->prepare($query2);
 
         $res->bindValue(':start_time', $startTime, PDO::PARAM_STR);
         $res2->bindValue(':start_time', $startTime, PDO::PARAM_STR);
+
+        $res->bindValue(':end_time', $endTime, PDO::PARAM_STR);
+        $res2->bindValue(':end_time', $endTime, PDO::PARAM_STR);
+        
+        if ($type !== null) {
+            $res->bindValue(':place_type', $type, PDO::PARAM_STR);
+            $res2->bindValue(':place_type', $type, PDO::PARAM_STR);
+        }
 
         $res->execute();
         $res2->execute();
@@ -47,6 +68,17 @@ function getParkingSpotAvailable(PDO $pdo, string $startTime)
             'count' => $count,
             'parkings' => $freeSpots
         ];
+    } catch (Exception $e) {
+        error_log('Error: ' . $e->getMessage());
+        return false;
+    }
+}
+
+function getPrices(PDO $pdo)
+{
+    try {
+        $res = $pdo->query('SELECT * FROM `pricing`');
+        return $res->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
         error_log('Error: ' . $e->getMessage());
         return false;

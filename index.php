@@ -18,7 +18,7 @@
     
  
     $adminPages = ['users', 'logs', 'reservation', 'parkings', 'profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login', 'reservations', 'reservation'];
-    $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login'];
+    $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login', 'reservation'];
     $guestPages = ['home', 'login', 'inscription', 'contact', 'admin-login'];
 
     require "includes/database.php";

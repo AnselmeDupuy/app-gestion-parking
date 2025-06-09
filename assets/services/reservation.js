@@ -1,7 +1,7 @@
-export const addReservation = async (form ) => {
+export const addReservation = async (form) => {
 
-    const formData = new FormData(form);
-    formData.append('add_reservation', '1');
+    const formData = new FormData(form)
+    formData.append('add_reservation', '1')
 
     try {
         
@@ -13,19 +13,15 @@ export const addReservation = async (form ) => {
         body: formData,
     })
 
-    if (!response.ok) {
-        throw new Error(`Error fetching users: ' + ${response.status}`)
-    }
-
     const result =  await response.json()
     if (result.success) {
         form.reset();
-        alert('Reservation added successfully!');
+        alert('Reservation added successfully!')
     } else {
-        alert(`Error adding reservation: ${result.message}`);
+        alert(`Error adding reservation: ${result.message}`)
     }
     } catch (error) {
         console.error('Error:', error);
-        alert(`Error adding reservation: ${error.message}`);
+        alert(`Error adding reservation: ${error.message}`)
     }
 }

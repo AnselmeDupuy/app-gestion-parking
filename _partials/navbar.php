@@ -23,7 +23,7 @@
                                             </ul>
                                        </div>`
             navbarLinks.innerHTML += `<a href="reservations">Reservations</a>`
-            navbarLinks.innerHTML += `<a href="reservation">My reservation</a>`
+            navbarLinks.innerHTML += `<a href="reservation">reservation</a>`
             navbarLinks.innerHTML += `<a href="dashboard">DashBoard</a>`
             navbarLinks.innerHTML += `<a href="profile">Profile</a>`
             navbarLinks.innerHTML += `<a href="parkings">Parking Spots</a>`
@@ -31,6 +31,7 @@
         } else if (isUser(user)) {
             navbarLinks.innerHTML += `<a href="home">Home</a>`
             navbarLinks.innerHTML += `<a href="dashboard">DashBoard</a>`
+            navbarLinks.innerHTML += `<a href="reservation">reservation</a>`
             navbarLinks.innerHTML += `<a href="profile">Profile</a>`
             navbarLinks.innerHTML += `<a href="home&disconnect=true">Logout</a>`
         } else if (isGuest(user)) {

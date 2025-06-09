@@ -30,5 +30,18 @@ function controller(string $componentName, array $array): void
         }
     }
 
+function calculatePrice(string $startTime, string $endTime, float $pricePerHour): float 
+    {
+        $start = new DateTime($startTime);
+        $end = new DateTime($endTime);
+        $duration = $start->diff($end);
+
+        $minutes = ($duration->days * 24 * 60) + ($duration->h * 60) + $duration->i;
+        $hours = $minutes / 60;
+
+
+        return round($hours * $pricePerHour, 2);
+    }
+
 
 ?>

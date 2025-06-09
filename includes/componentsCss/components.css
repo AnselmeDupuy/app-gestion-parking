@@ -1,7 +1,28 @@
 /* CSS for the dashboard page */
 
-.dashboardBody { 
-    font-family: Arial, sans-serif; padding: 2rem; 
+.dashboardBody {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    border: white 1px solid;
+}
+
+.dashboardPaymentBody {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin-left: 10%;
+    height: 100%;
+    background-color: #f4f4f4;
+}
+
+.dashboardCardBody { 
+    font-family: Arial, sans-serif; 
+    padding: 2rem; 
+    width: 40%;
+    height: 100%;
+    
 }
 
 .dashBoardCard h3, .dashBoardCard p {
@@ -20,10 +41,8 @@ a.logout {
 .dashBoardCard {
     background: #333;
     padding: 1rem;
-    margin: 1rem 0;
     border-radius: 8px;
-    width: 50%;
-    margin-left: 10%;
+    width: 100%;
 }
 
 /* CSS for the home page */
