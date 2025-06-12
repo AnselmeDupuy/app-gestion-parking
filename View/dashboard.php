@@ -15,24 +15,5 @@
     </div>
   <?php endforeach; ?>
   </div>
-
-  <div class="dashboardPaymentBody">
-    <ul class="list-group">
-      <li class="list-group-item">
-        <h2>Reservations</h2>
-        <p>List of order</p>
-      </li>
-      <?php foreach ($reservations as $reservation): ?>
-        <li class="list-group-item">
-          <h3>Reservation #<?php echo $reservation['id']; ?></h3>
-          <p>Car: <?php echo htmlspecialchars($reservation['car_name']) . ' - ' . htmlspecialchars($reservation['license_plate']); ?></p>
-          <p>Start Time: <?php echo $reservation['start_time']; ?></p>
-          <p>End Time: <?php echo $reservation['end_time']; ?></p>
-          <p>Status: <?php echo $reservation['status']; ?></p>
-        </li>
-      <?php endforeach; ?>
-    </ul>
-  <div id="paypal-button-container"></div>
-        
-  </div>
+      
 </div>
