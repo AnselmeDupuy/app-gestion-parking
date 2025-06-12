@@ -27,12 +27,14 @@
             navbarLinks.innerHTML += `<a href="dashboard">DashBoard</a>`
             navbarLinks.innerHTML += `<a href="profile">Profile</a>`
             navbarLinks.innerHTML += `<a href="parkings">Parking Spots</a>`
+            navbarLinks.innerHTML += `<a href="order">Order</a>`
             navbarLinks.innerHTML += `<a href="home&disconnect=true">Logout</a>`
         } else if (isUser(user)) {
             navbarLinks.innerHTML += `<a href="home">Home</a>`
             navbarLinks.innerHTML += `<a href="dashboard">DashBoard</a>`
             navbarLinks.innerHTML += `<a href="reservation">reservation</a>`
             navbarLinks.innerHTML += `<a href="profile">Profile</a>`
+            navbarLinks.innerHTML += `<a href="order">Order</a>`
             navbarLinks.innerHTML += `<a href="home&disconnect=true">Logout</a>`
         } else if (isGuest(user)) {
             navbarLinks.innerHTML += `<a href="home">Home</a>`

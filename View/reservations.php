@@ -11,6 +11,7 @@
                 <th scope="col">Start Date</th>
                 <th scope="col">End Date</th>
                 <th scope="col">Created At</th>
+                <th scope="col">Parking subscription type</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
@@ -28,6 +29,7 @@
                     <td><?php echo $reservation['start_time']; ?></td>
                     <td><?php echo $reservation['end_time']; ?></td>
                     <td><?php echo $reservation['created_at']; ?></td>
+                    <td><?php echo $reservation['parking_status']; ?></td>
                     <td>place holder</td>
                     </tr>
                 <?php endforeach; ?>

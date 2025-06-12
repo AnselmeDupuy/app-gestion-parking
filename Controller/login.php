@@ -26,6 +26,7 @@ if (isset($_POST["login_button"])) {
                 $_SESSION['first_name'] = $user['firstName'];
                 $_SESSION['last_name'] = $user['lastName'];
                 $_SESSION['phone'] = $user['phone'];
+                $_SESSION['subscription_status'] = $user['subbed'] == 1 ? 'premium' : 'free';
 
                 $details = "Login successful";
                 logAction($pdo, $action, $details." ".$_SESSION['email']);

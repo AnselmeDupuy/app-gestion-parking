@@ -30,6 +30,17 @@ function controller(string $componentName, array $array): void
         }
     }
 
+function getPrices(PDO $pdo)
+{
+    try {
+        $res = $pdo->query('SELECT * FROM `pricing`');
+        return $res->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        error_log('Error: ' . $e->getMessage());
+        return false;
+    }
+}
+
 function calculatePrice(string $startTime, string $endTime, float $pricePerHour): float 
     {
         $start = new DateTime($startTime);
@@ -42,6 +53,20 @@ function calculatePrice(string $startTime, string $endTime, float $pricePerHour)
 
         return round($hours * $pricePerHour, 2);
     }
+
+function getDuration(string $startTime, string $endTime) : string
+    {
+        $start = new DateTime($startTime);
+        $end = new DateTime($endTime);
+        $total = $start->diff($end);
+        $duration = $total->h."h";
+        if($total->i > 0) {
+            $duration .= $total->i;
+        }
+        
+
+        return $duration;
+    }   
 
 
 ?>

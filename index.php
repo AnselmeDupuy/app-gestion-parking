@@ -1,8 +1,6 @@
 <?php
     session_start();
 
-
-
     function customError($errno, $errstr) {
         echo "<b>Error:</b> [$errno] $errstr";
     }
@@ -15,13 +13,34 @@
     $dotenv = Dotenv\Dotenv::createImmutable(".");
     $dotenv->safeLoad();
     $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
-    
- 
-    $adminPages = ['users', 'logs', 'reservation', 'parkings', 'profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login', 'reservations', 'reservation'];
-    $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login', 'reservation'];
-    $guestPages = ['home', 'login', 'inscription', 'contact', 'admin-login'];
 
     require "includes/database.php";
+
+    $today = new DateTime("now");
+    $week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+    $weekEnd = ['Sat', 'Sun'];
+    $day = $today->format('D');
+    $hour = $today->format('H');
+
+    $prices = getPrices($pdo);
+
+    if (in_array($day, $week)) {
+        if ($hour >= 8 && $hour <= 22) {
+            $todayPrice = $prices[0]['price'];
+        } else {
+            $todayPrice = $prices[1]['price'];
+        }
+    } elseif (in_array($day, $weekEnd)) {
+        $todayPrice = $prices[2]['price'];
+    } else {
+        $todayPrice = null;
+        logAction($pdo, 'Get Price', 'Failed to associate a price with today\'s date: '.$todayPrice);
+    }
+    
+ 
+    $adminPages = ['users', 'logs', 'reservation', 'parkings', 'profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login', 'reservations', 'reservation', 'order'];
+    $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login', 'reservation', 'order'];
+    $guestPages = ['home', 'login', 'inscription', 'contact', 'admin-login'];
 
     $componentName = isset($_GET["component"]) ? cleanString($_GET["component"]) : "home";
 

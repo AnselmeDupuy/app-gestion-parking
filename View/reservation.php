@@ -39,7 +39,7 @@
 
     <label for="parking-type-select">Type of parking :</label>
     <select class="form-select" id="parking-type-select" name="parking_type">
-        <option value="basic">basic</option>
+        <option value="basic">Basic</option>
         <option value="electric">Electric</option>
         <option value="handicapped">handicapped</option>
     </select>

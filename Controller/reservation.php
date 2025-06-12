@@ -7,23 +7,21 @@ require_once "Model/reservation.php";
 require_once "Model/profile.php";
 require_once "Model/dashboard.php";
 
-
 if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest' && isset($_POST['add_reservation'])) {
     $date = cleanString($_POST['reservation_date']) ?? null;
     $startTime = cleanString($_POST['reservation_start_time']) ?? null;
     $endTime = cleanString($_POST['reservation_end_time']) ?? null;
     $vehicleId = cleanString($_POST['vehicle_id']) ?? null;
     $type = cleanString($_POST['parking_type']) ?? null;
-    if ($type !== 'basic' || $type !== 'handicapped' || $type !== 'electric') {
+    if ($type !== 'basic' && $type !== 'handicapped' && $type !== 'electric') {
         $type = null;
     };
+    $status = $_SESSION['subscription_status'];
     $userId = $_SESSION['user_id'] ?? null;
     $dateCheck = true;
 
     $startDateTime = "$date"." "."$startTime";
     $endDateTime = "$date"." "."$endTime";
-
-    
 
     if (date($startDateTime) > date($endDateTime) || date($startDateTime) === date($endDateTime)) {
         $dateCheck = false;
@@ -37,16 +35,27 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
         header('Content-Type: application/json', true, 400);
         echo json_encode(['success' => false, 'message' => 'Reservation cannot be in the past.']);
         exit();
-    } else
-
-    
+    } else  
 
     if ($startDateTime && $endDateTime && $vehicleId && $userId && $dateCheck === true) {
 
-        $getFreeParking = getParkingSpotAvailable($pdo, date($startDateTime), date($endDateTime), $type);
-        $parkingId = $getFreeParking['parkings'][0]['id'] ?? null;
+        $getFreeParking = getParkingSpotAvailable($pdo, date($startDateTime), date($endDateTime), $type, $status);
 
-        if ($parkingId === null) {
+        if($getFreeParking['count'] === 0) {
+            $getFreeParking = getParkingSpotAvailable($pdo, date($startDateTime), date($endDateTime), $type, 'free');
+            if ($getFreeParking['count'] === 0) {
+                logAction($pdo, 'add_reservation', "no more places for $type parking for user ID: $userId");
+                header('Content-Type: application/json');
+                echo json_encode(['success' => false, 'message' => 'No available parking spots for the selected type at the time.']);
+                exit();
+            }
+            $parkingId = $getFreeParking['parkings'][0]['id'];
+        } else {
+            $parkingId = $getFreeParking['parkings'][0]['id'];
+        }
+
+
+        if ($parkingId === 0) {
             logAction($pdo, 'add_reservation', "no more places for ". "$type" . " parking for user ID: $userId");
             header('Content-Type: application/json');
             echo json_encode(['success' => false, 'message' => 'No available parking spots for the selected type at the time.']);

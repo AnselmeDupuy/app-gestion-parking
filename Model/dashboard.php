@@ -19,21 +19,25 @@ function getReservationsByUser(PDO $pdo, int $userId)
     }
 }
 
-function getParkingSpotAvailable(PDO $pdo, string $startTime, string $endTime, ?string $type = null)
+function getParkingSpotAvailable(PDO $pdo, string $startTime, string $endTime, ?string $type = null, ?string $status = 'free')
 {
     try {
-        $query = 'SELECT count(*) AS count FROM `parkings` WHERE `status` = "free" AND `id` NOT IN (
+        $query = 'SELECT count(*) AS count FROM `parkings` 
+                    WHERE parkings.status = :status 
+                    AND parkings.id NOT IN (
                     SELECT `parking_id` FROM `reservations` 
-                    WHERE `status` = "waiting"
+                    WHERE reservations.status = "waiting"
                     AND NOT (
                         reservations.end_time <= :start_time
                         OR reservations.start_time >= :end_time
                     )
                 )';
 
-        $query2 = 'SELECT * FROM `parkings` WHERE `status` = "free" AND `id` NOT IN (
+        $query2 = 'SELECT * FROM `parkings` 
+                    WHERE parkings.status = :status 
+                    AND parkings.id NOT IN (
                     SELECT `parking_id` FROM `reservations` 
-                    WHERE `status` = "waiting"
+                    WHERE reservations.status = "waiting"
                     AND NOT (
                         reservations.end_time <= :start_time
                         OR reservations.start_time >= :end_time
@@ -41,8 +45,8 @@ function getParkingSpotAvailable(PDO $pdo, string $startTime, string $endTime, ?
                 )';
         
         if ($type !== null) {
-            $query .= ' AND `type` = :place_type';
-            $query2 .= ' AND `type` = :place_type';
+            $query .= ' AND parkings.type = :place_type';
+            $query2 .= ' AND parkings.type = :place_type';
         }
 
         $res = $pdo->prepare($query);
@@ -53,6 +57,9 @@ function getParkingSpotAvailable(PDO $pdo, string $startTime, string $endTime, ?
 
         $res->bindValue(':end_time', $endTime, PDO::PARAM_STR);
         $res2->bindValue(':end_time', $endTime, PDO::PARAM_STR);
+
+        $res->bindValue(':status', $status, PDO::PARAM_STR);
+        $res2->bindValue(':status', $status, PDO::PARAM_STR);
         
         if ($type !== null) {
             $res->bindValue(':place_type', $type, PDO::PARAM_STR);
@@ -74,13 +81,3 @@ function getParkingSpotAvailable(PDO $pdo, string $startTime, string $endTime, ?
     }
 }
 
-function getPrices(PDO $pdo)
-{
-    try {
-        $res = $pdo->query('SELECT * FROM `pricing`');
-        return $res->fetchAll(PDO::FETCH_ASSOC);
-    } catch (Exception $e) {
-        error_log('Error: ' . $e->getMessage());
-        return false;
-    }
-}

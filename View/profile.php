@@ -12,7 +12,8 @@
     <p class="card-text">Email : <?php echo $user['email'] ?></p>
     <p class="card-text">Phone number : <?php echo $user['phone'] ?></p>
     <p class="card-text">Inscription Date : <?php echo $user['created_at'] ?></p>
-    <p class="card-text">Group : <?php if($user['group_id'] === 1){echo 'user';} else {echo 'admin';}; ?></p>
+    <p class="card-text">Group : <?php echo $user['group_id'] === 2 ? 'admin' : 'use';?></p>
+    <p class="card-text">Subscription : <?php echo $user['subbed'] === 1 ? 'premium' : 'free'; ?></p>
     <form method="post">
     <button type="submit" class="btn btn-primary" name="edit-profile">Edit Profile</button>
   </form>
@@ -31,7 +32,7 @@
           <button class="accordion-button accordion-button-profile-car collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
             Add a car
           </button>
-        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordion-car">
+        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordion-car">
           <div class="accordion-body">
             <form method="post">
                 <div class="mb-3">

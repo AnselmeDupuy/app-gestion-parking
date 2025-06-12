@@ -5,7 +5,6 @@
     flex-direction: row;
     height: 100%;
     width: 100%;
-    border: white 1px solid;
 }
 
 .dashboardPaymentBody {
@@ -14,7 +13,6 @@
     width: 40%;
     margin-left: 10%;
     height: 100%;
-    background-color: #f4f4f4;
 }
 
 .dashboardCardBody { 
@@ -27,15 +25,6 @@
 
 .dashBoardCard h3, .dashBoardCard p {
     color: rgb(255, 255, 255);
-}
-
-a.logout {
-    float: right;
-    background: #e74c3c;
-    color: white;
-    padding: 0.5rem 1rem;
-    text-decoration: none;
-    border-radius: 5px;
 }
 
 .dashBoardCard {
