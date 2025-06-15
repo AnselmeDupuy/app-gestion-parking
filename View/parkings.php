@@ -1,34 +1,33 @@
-<header>
-    <h2>ParkingSpot Manager</h2>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Dashboard</a>
-      <a href="#">Login</a>
-      <a href="#">Contact</a>
-    </nav>
-  </header>
 
-  <section class="description">
-    <h1>Manage Your Parking Efficiently</h1>
-    <p>Find, reserve, and monitor parking spots with ease.</p>
-  </section>
+<div class="mt-2 mb-2">
+    <h1 class="text-center">parkings list</h1>
+</div>
 
-  <section class="features">
-    <div class="feature">
-      <h3>Real-Time Availability</h3>
-      <p>View and Reserve parking spots fast and easy</p>
-    </div>
-    <div class="feature">
-      <h3>Subscription plans</h3>
-      <p>Subscribe to our service and get your spot today!</p>
-    </div>
-    <div class="feature">
-      <h3>Reservation System</h3>
-      <p>Allow users to book parking in advance with confidence.</p>
-    </div>
-  </section>
+<form class="d-flex parkings-search" role="search" action="index.php?component=parkings" method="post">
+        <input class="form-control me-2" type="search" placeholder="Search a parking" aria-label="Search" name="search" value="<?php echo (isset($_POST['search'])) ? cleanString($_POST['search']) : '';?>">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
 
-  <footer>
-    <a href="home">Home Page</a>
-    <a href="LIEN VERS FORMULAIRE CONTACT">Contact Us</a>
-  </footer>
+<div class="row parkings-list">
+    <table class="table table-bordered table-parkings">
+        <thead>
+        <tr>
+            <th scope="col">Place Number</th>
+            <th scope="col">Type</th>
+            <th scope="col">Subscription Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        
+            <?php foreach($parkings as $parking): ?>
+            <tr>
+                <td><?php echo $parking['place_number']; ?></td>
+                <td><?php echo $parking['type']; ?></td>
+                <td><?php echo $parking['status']; ?></td>
+            </tr> 
+                <?php endforeach; ?>
+        
+        </tbody>
+    </table>
+</div>
+

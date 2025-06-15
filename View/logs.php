@@ -1,25 +1,55 @@
-<link href="includes/componentsCss/logs.css" rel="stylesheet">
 
 
-<form class="d-flex mb-3 logs-search" role="search" action="index.php?component=logs" method="post">
-    <input class="form-control me-2" type="search" placeholder="Search logs" aria-label="Search" name="search" value="<?php echo isset($_POST['search']) ? cleanString($_POST['search']) : ''; ?>">
-    <button class="btn btn-outline-success" type="submit">Search</button>
+<form class="d-flex mb-3 logs-search" role="search" action="logs" method="get">
+    <input class="form-control me-2 logs-search-input" type="search" placeholder="Search logs" aria-label="Search" name="search" value="<?php echo isset($_GET['search']) ? cleanString($_GET['search']) : ''; ?>">
+    <button class="btn btn-outline-success logs-search-button" type="submit">Search</button>
 </form>
 
+<table class="table table-bordered table-logs">
+<thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">User ID</th>
+        <th scope="col">Client IP</th>
+        <th scope="col">User Agent</th>
+        <th scope="col">Action</th>
+        <th scope="col">Action Details</th>
+        <th scope="col">Created At</th>
+    </tr>
+</thead>
 
-<?php foreach($logs as $log): ?>
+    <tbody id='table-body-logs'>
 
-    <div class="card logs-card">
-        <div class="card-header logs-card-header">
-            <h5 class="card-title logs-card-title">Log ID: <?= $log['id'],', ', $log['action'] ?></h5>
-        </div>
-        <div class="card-body logs-card-body">
-            <p><strong>User ID : </strong> <?= $log['user_id'] ?></p>
-            <p><strong>Client IP : </strong> <?= $log['client_ip'] ?></p>
-            <p><strong>User Agent :</strong> <?= $log['user_agent'] ?></p>
-            <p><strong>Details :</strong> <?= $log['action_details'] ?></p>
-            <p><strong>Date and time : </strong> <?= $log['created_at'] ?></p>
-        </div>
-    </div>
+    </tbody>
 
-<?php endforeach; ?>
+
+</table>
+
+<nav aria-label="Page navigation">
+  <ul class="pagination pagination-logs">
+
+  </ul>
+</nav>
+
+<script type="module">
+    import { getLogs } from './assets/services/logs.js'
+    document.addEventListener('DOMContentLoaded', async () => {
+
+    const logsContainer = document.getElementById('table-body-logs')
+    const paginationContainer = document.querySelector('.pagination-logs')
+    const searchInput = document.querySelector('.logs-search-input')
+    const searchButton = document.querySelector('.logs-search-button')
+
+    const initialSearch = searchInput.value.trim()
+    const logs = await getLogs(logsContainer, paginationContainer, 1, initialSearch)
+
+    searchButton.addEventListener('click', async (e) => {
+        e.preventDefault()
+        const search = searchInput.value.trim()
+        await getLogs(logsContainer, paginationContainer, 1 ,search)
+    })
+
+})
+</script>
+
+

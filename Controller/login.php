@@ -1,8 +1,9 @@
 <?php
+global $pdo;
 /**
  * @var PDO $pdo
  */
-require "Model/login.php";
+require_once "Model/login.php";
 
 if (isset($_POST["login_button"])) {
     $action = 'login';
@@ -25,21 +26,22 @@ if (isset($_POST["login_button"])) {
                 $_SESSION['first_name'] = $user['firstName'];
                 $_SESSION['last_name'] = $user['lastName'];
                 $_SESSION['phone'] = $user['phone'];
+                $_SESSION['subscription_status'] = $user['subbed'] == 1 ? 'premium' : 'free';
 
                 $details = "Login successful";
-                logAction($pdo, $action, $details);
+                logAction($pdo, $action, $details." ".$_SESSION['email']);
 
-                header("Location: index.php");
+                header("Location: home");
 
                 exit();
             } elseif ($user['is_active'] !== 1 && $isMatchPassword && is_array($user)){
                 $errors[] = "account is inactive";
                 $details = "Login attempt failed, account is inactive";
-                logAction($pdo, $action, $details);
+                logAction($pdo, $action, $details." ".$user['email']);
             } else {
                 $errors[] = "authentication failed, invalid password";
                 $details = "Login attempt failed, invalid password";
-                logAction($pdo, $action, $details);
+                logAction($pdo, $action, $details." ".$user['email']);
             }
         } else {
             $errors[] = "user invalid";

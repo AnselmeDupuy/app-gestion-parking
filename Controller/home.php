@@ -2,7 +2,7 @@
 /**
  * @var PDO $pdo
  */
-require "Model/home.php";
+require_once "Model/home.php";
 
 
 

@@ -1,4 +1,3 @@
-<link href="includes/componentsCss/partials.css" rel="stylesheet">
     <h2>ParkingSpot Manager</h2>
     <nav class="navbarLinks">
 
@@ -7,28 +6,41 @@
     import { getUser, isAdmin, isUser, isGuest } from "./assets/services/navBar.js"
 
     const user = "<?php echo isset($_SESSION['group']) ? $_SESSION['group'] : 'guest'; ?>"
-    console.log(user);
+    console.log(user)
 
     document.addEventListener('DOMContentLoaded', async () => {
         const navbarLinks = document.querySelector('.navbarLinks')
 
         if (isAdmin(user)) {
-            navbarLinks.innerHTML += `<a href="index.php?component=home">Home</a>`
-            navbarLinks.innerHTML += `<a href="index.php?component=logs">Logs</a>`
-            navbarLinks.innerHTML += `<a href="index.php?component=users">Users</a>`
-            navbarLinks.innerHTML += `<a href="index.php?component=dashboard">DashBoard</a>`
-            navbarLinks.innerHTML += `<a href="index.php?component=profile">Profile</a>`
-            navbarLinks.innerHTML += `<a href="index.php?component=home&disconnect=true">Logout</a>`
+            navbarLinks.innerHTML += `<a href="home">Home</a>`
+            navbarLinks.innerHTML += `<div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                Admin panel
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item" href="logs">Logs</a></li>
+                                                <li><a class="dropdown-item" href="users">Users</a></li>
+                                            </ul>
+                                       </div>`
+            navbarLinks.innerHTML += `<a href="reservations">Reservations</a>`
+            navbarLinks.innerHTML += `<a href="reservation">reservation</a>`
+            navbarLinks.innerHTML += `<a href="dashboard">DashBoard</a>`
+            navbarLinks.innerHTML += `<a href="profile">Profile</a>`
+            navbarLinks.innerHTML += `<a href="parkings">Parking Spots</a>`
+            navbarLinks.innerHTML += `<a href="order">Order</a>`
+            navbarLinks.innerHTML += `<a href="home&disconnect=true">Logout</a>`
         } else if (isUser(user)) {
-            navbarLinks.innerHTML += `<a href="index.php?component=home">Home</a>`
-            navbarLinks.innerHTML += `<a href="index.php?component=dashboard">DashBoard</a>`
-            navbarLinks.innerHTML += `<a href="index.php?component=profile">Profile</a>`
-            navbarLinks.innerHTML += `<a href="index.php?component=home&disconnect=true">Logout</a>`
+            navbarLinks.innerHTML += `<a href="home">Home</a>`
+            navbarLinks.innerHTML += `<a href="dashboard">DashBoard</a>`
+            navbarLinks.innerHTML += `<a href="reservation">reservation</a>`
+            navbarLinks.innerHTML += `<a href="profile">Profile</a>`
+            navbarLinks.innerHTML += `<a href="order">Order</a>`
+            navbarLinks.innerHTML += `<a href="home&disconnect=true">Logout</a>`
         } else if (isGuest(user)) {
-            navbarLinks.innerHTML += `<a href="index.php?component=home">Home</a>`
-            navbarLinks.innerHTML += `<a href="index.php?component=inscription">Register</a>`
-            navbarLinks.innerHTML += `<a href="index.php?component=login">Login</a>`
-            navbarLinks.innerHTML += `<a href="index.php?component=contact">Contact</a>`
+            navbarLinks.innerHTML += `<a href="home">Home</a>`
+            navbarLinks.innerHTML += `<a href="inscription">Register</a>`
+            navbarLinks.innerHTML += `<a href="login">Login</a>`
+            navbarLinks.innerHTML += `<a href="#">Contact</a>`
         }
     })
 </script>
