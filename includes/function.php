@@ -64,7 +64,6 @@ function getDuration(string $startTime, string $endTime) : string
             $duration .= $total->i;
         }
         
-
         return $duration;
     }   
 

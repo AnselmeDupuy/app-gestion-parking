@@ -1,5 +1,18 @@
 <div>
-    <table class="table table-bordered">
+
+
+<div class="btn-group btn-group-reservations" role="group" aria-label="Basic radio toggle button group">
+  <input type="radio" class="btn-check btn-reservations" name="btnradio" id="btn-waiting" data-id='waiting' autocomplete="off" checked>
+  <label class="btn btn-outline-primary" for="btn-waiting">Waiting on payment</label>
+
+  <input type="radio" class="btn-check btn-reservations" name="btnradio" id="btn-canceled" data-id='canceled' autocomplete="off">
+  <label class="btn btn-outline-primary" for="btn-canceled">Canceled reservations</label>
+
+  <input type="radio" class="btn-check btn-reservations" name="btnradio" id="btn-confirmed" data-id='confirmed' autocomplete="off">
+  <label class="btn btn-outline-primary" for="btn-confirmed">Confirmed</label>
+</div>
+
+    <table class="table table-bordered table-reservations">
         <thead>
             <tr>
                 <th scope="col">#</th>
@@ -17,23 +30,32 @@
         </thead>
 
         <tbody id='table-body-reservations'>
-            
-                <?php foreach($reservations as $reservation): ?>
-                    <tr>
-                    <td><?php echo $reservation['id']; ?></td>
-                    <td><?php echo $reservation['user_id']; ?></td>
-                    <td><?php echo $reservation['firstName']. ' '. $reservation['surName']; ?></td>
-                    <td><?php echo $reservation['parking_id']; ?></td>
-                    <td><?php echo $reservation['car_id']; ?></td>
-                    <td><?php echo $reservation['status']; ?></td>
-                    <td><?php echo $reservation['start_time']; ?></td>
-                    <td><?php echo $reservation['end_time']; ?></td>
-                    <td><?php echo $reservation['created_at']; ?></td>
-                    <td><?php echo $reservation['parking_status']; ?></td>
-                    <td>place holder</td>
-                    </tr>
-                <?php endforeach; ?>
         
         </tbody>
     </table>
 </div>
+<script type="module">
+import { getReservations } from './assets/services/reservations.js'
+
+document.addEventListener('DOMContentLoaded', async () => {
+    const reservationsContainer = document.getElementById('table-body-reservations')
+    const statusBtns = document.querySelectorAll('.btn-reservations')
+
+    statusBtns.forEach(btn => {
+        btn.addEventListener('change', async (e) => {
+            if (btn.checked) {
+                const status = btn.getAttribute('data-id')
+                await getReservations(reservationsContainer, status)
+            }
+        })
+    })
+    await getReservations(reservationsContainer, 'waiting')
+
+
+
+})
+
+
+
+
+</script>

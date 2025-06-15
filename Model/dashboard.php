@@ -1,18 +1,38 @@
 <?php
 
-function getReservationsByUser(PDO $pdo, int $userId)
+function getReservationsByUserWaiting(PDO $pdo, int $userId)
+{
+    try {
+        $res = $pdo->prepare(
+            '                   SELECT reservations.*, cars.car_name, cars.license_plate, parkings.type
+                                FROM `reservations`
+                                JOIN `cars` ON reservations.car_id  = cars.id  
+                                JOIN `parkings` ON reservations.parking_id = parkings.id
+                                WHERE reservations.user_id = :user_id AND reservations.status ="waiting"
+                                ORDER BY `start_time` ASC');
+        
+        $res->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $res->execute();
+        return $res->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        error_log( 'Error: ' . $e->getMessage());
+        return false;
+    }
+}
+
+function getReservationsByUserConfirmed(PDO $pdo, int $userId)
 {
     try {
         $res = $pdo->prepare(
             '                   SELECT reservations.*, cars.car_name, cars.license_plate
                                 FROM `reservations`
                                 JOIN `cars` ON reservations.car_id  = cars.id  
-                                WHERE reservations.user_id = :user_id AND reservations.status IN ("confirmed", "waiting")
+                                WHERE reservations.user_id = :user_id AND reservations.status ="confirmed"
                                 ORDER BY `start_time` ASC');
         
         $res->bindValue(':user_id', $userId, PDO::PARAM_INT);
         $res->execute();
-        return $res->fetchAll();
+        return $res->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
         error_log( 'Error: ' . $e->getMessage());
         return false;

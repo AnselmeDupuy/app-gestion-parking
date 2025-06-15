@@ -6,7 +6,7 @@ global $todayPrice;
  */
 require_once "Model/dashboard.php";
 
-$reservations = getReservationsByUser($pdo, $_SESSION['user_id']);
+$reservations = getReservationsByUserConfirmed($pdo, $_SESSION['user_id']);
 foreach ($reservations as $reservation) {
     $reservation['start_time'] = date('Y-m-d H:i', strtotime($reservation['start_time']));
     $reservation['end_time'] = date('Y-m-d H:i', strtotime($reservation['end_time']));

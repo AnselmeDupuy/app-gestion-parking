@@ -7,67 +7,42 @@
       <th>Vehicle</th>
       <th>Start Date</th>
       <th>End Date</th>
-      <th>Price</th>
+      <th>Parking type</th>
+      <th>Total Price</th>
       <th>Status</th>
-      <th>Actions</th>
+      <th>Pay</th>
+      <th>Cancel</th>
     </tr>
   </thead>
-  <tbody>
-    <?php foreach ($reservations as $reservation): ?>
-      <tr>
-        <td><?php echo $reservation['id']; ?></td>
-        <td><?php echo htmlspecialchars($reservation['car_name']) . ' - ' . htmlspecialchars($reservation['license_plate']); ?></td>
-        <td><?php echo $reservation['start_time'];?></td>
-        <td><?php echo $reservation['end_time']; ?></td>
-        <td><?php echo 'price'; ?></td>
-        <td><?php echo $reservation['status']; ?></td>
-        <td>
-            <div id="paypal-button-container-1"></div>
-        </td>
-      </tr>
-    <?php endforeach; ?>
+  <tbody id="order-container">
+
+    
   </tbody>
 </table>
-<script src="https://www.paypal.com/sdk/js?client-id=AcDfcUQ3_VogqxvnsGkdfKd5ey6twglEkCzbtBwZNkhW8rzeWr0BDeQ4uHUDfJaqvCSIzt0acdpN1pI1&currency=EUR"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=<?php echo $_ENV['PAYPAL_CLIENT_ID']; ?>&currency=EUR"></script>
 <script type="module">
-    paypal.Buttons({
-        style: {
-                layout: 'horizontal',
-                color: 'silver',
-                shape: 'pill',
-                label: 'pay'
-        },
-        createOrder: function(data,actions) {
-            return actions.order.create({
-                purchage_units: [{
-                    amount: {
-                        value: '2.0'
-                    }
-                }]
-            })
-        },
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-                fetch('pay_order.php', {
-                    method: 'POST',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    body: JSON.stringify({
-                        orderId: '1',
-                    })
-                }).then(res => res.json())
-                .then(res => {
-                    if (res.success) {
-                        alert("Order Complete")
-                        location.reload()
-                    } else {
-                        alert("Pament captured but failed backend")
-                    }
-                })
-            })
-        }
-    }).render('#paypal-button-container-1')
+import { getOrders, cancelOrder } from './assets/services/order.js'
+
+document.addEventListener('DOMContentLoaded', async () => {
+  
+  const orderContainer = document.getElementById('order-container')
+
+  const orders = await getOrders(orderContainer)
+
+  document.addEventListener('click', async (e) => {
+    const deleteBtn = e.target.closest('.delete-order-buttons')
+    if (deleteBtn) {
+      e.preventDefault()
+      const orderId = deleteBtn.getAttribute('data-id')
+      if(confirm('Do you want to delete this reservation ?')) {
+        await cancelOrder(orderId, orderContainer)
+      }
+    }
+  })
+
+})
+
+
+
+
 </script>
-
-

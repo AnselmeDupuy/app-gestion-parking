@@ -11,7 +11,7 @@
     require "includes/logs.php";
     require  './vendor/autoload.php';
     $dotenv = Dotenv\Dotenv::createImmutable(".");
-    $dotenv->safeLoad();
+    $dotenv->safeLoad(); 
     $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
 
     require "includes/database.php";

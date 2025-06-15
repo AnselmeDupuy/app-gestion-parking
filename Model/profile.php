@@ -31,7 +31,7 @@ function getCarsByUser(PDO $pdo, int $id, ?string $search = null, ?string $sortb
         }
         $res->bindValue(':id', $id, PDO::PARAM_INT);
         $res->execute();
-        return $res->fetchAll();
+        return $res->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
         $errors[] = "get all users issue";
     }

@@ -1,17 +1,5 @@
 <?php
 
-function cancelReservation(PDO $pdo, int $reservationId)
-{
-    try {
-        $res = $pdo->prepare('DELETE FROM `reservations` WHERE `id` = :id');
-        $res->bindValue(':id', $reservationId, PDO::PARAM_INT);
-        return $res->execute();
-    } catch (Exception $e) {
-        echo 'Error: ' . $e->getMessage();
-        return false;
-    }
-}
-
 function addReservation(PDO $pdo, int $userId, int $carId, string $startTime, string $endTime, int $parkingId)
 {
     try {

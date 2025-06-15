@@ -1,0 +1,48 @@
+import { calculatePrice } from "./functions"
+
+export const getReservations = async (reservationsContainer, status) => {
+
+    const response = await fetch(`reservations?status=${status}`, {
+        method: 'GET',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+        },
+    })
+
+    if (!response.ok) {
+        throw new Error(`Error fetching reservations: ' + ${response.status}`)
+    }
+
+    const data = await response.json()
+
+    console.log(data)
+
+    await generateReservations(data.reservations, reservationsContainer)
+
+}
+
+
+
+const generateReservations = async (reservations, reservationsContainer) => {
+    reservationsContainer.innerHTML = ''
+    reservations.forEach(reservation => {
+        const price = calculatePrice(new Date(reservation.start_time), new Date(reservation.end_time), 0.70)
+        const reservationRow = `
+        <tr>
+        <td>${reservation.id}</td>
+        <td>${reservation.user_id}</td>
+        <td>${reservation.firstName}</td>
+        <td>${reservation.parking_id}</td>
+        <td>${reservation.car_id}</td>
+        <td>${reservation.status}</td>
+        <td>${reservation.start_time}</td>
+        <td>${reservation.end_time}</td>
+        <td>${reservation.created_at}</td>
+        <td>${reservation.parking_status}</td>
+        <td><a class="delete-reservation-buttons" data-id="${reservation.id}" href="#"><i class="fa-solid fa-circle-xmark text-danger reservation-cross"></i></a></td>
+
+        </tr>`
+        reservationsContainer.innerHTML += reservationRow
+
+    })
+} 
