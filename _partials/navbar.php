@@ -1,4 +1,4 @@
-    <h2>ParkingSpot Manager</h2>
+    <h2>park'Heure</h2>
     <nav class="navbarLinks">
 
     </nav>

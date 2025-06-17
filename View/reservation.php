@@ -1,4 +1,4 @@
-<form class="row g-3" id="reservation-form" method="post">
+<form class="row g-3 reservation-form" id="reservation-form" method="post">
     <label for="reservation-date">Date :</label>
     <input class="form-control" type="date" id="reservation-date" name="reservation_date" 
     value="<?php echo date("Y-m-d") ;?>" placeholder="<?php echo date("d-m-Y") ;?>" required>
@@ -43,10 +43,9 @@
         <option value="electric">Electric</option>
         <option value="handicapped">handicapped</option>
     </select>
-    <button type="submit" name="add_reservation">Réserver</button>
+    <button type="submit" id="submit-btn-reservation" name="add_reservation">Confirm</button>
 
-<div id="paypal-button-container"></div>
-
+</form>
 <script type="module">
     import { addReservation } from './assets/services/reservation.js'
     document.addEventListener('DOMContentLoaded', async () => {

@@ -1,4 +1,4 @@
-import { calculatePrice } from "./functions"
+import { calculatePrice } from "./functions.js"
 
 export const getReservations = async (reservationsContainer, status) => {
 
