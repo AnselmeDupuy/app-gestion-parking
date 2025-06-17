@@ -7,6 +7,7 @@ global $todayPrice;
 require_once "Model/dashboard.php";
 
     $week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+    $weekEnd = ['Sat', 'Sun'];
 
     $prices = getPrices($pdo);
 

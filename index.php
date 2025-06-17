@@ -39,8 +39,8 @@
     
  
     $adminPages = ['users', 'logs', 'reservation', 'parkings', 'profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login', 'reservations', 'reservation', 'order'];
-    $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'inscription', 'contact', 'admin-login', 'reservation', 'order'];
-    $guestPages = ['home', 'login', 'inscription', 'contact', 'admin-login'];
+    $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'inscription', 'contact', 'reservation', 'order'];
+    $guestPages = ['home', 'login', 'inscription', 'contact'];
 
     $componentName = isset($_GET["component"]) ? cleanString($_GET["component"]) : "home";
 
