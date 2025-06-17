@@ -32,7 +32,7 @@
 </nav>
 
 <script type="module">
-    import { getLogs } from './assets/services/logs.js'
+    import { getLogs } from '/assets/services/logs.js'
     document.addEventListener('DOMContentLoaded', async () => {
 
     const logsContainer = document.getElementById('table-body-logs')

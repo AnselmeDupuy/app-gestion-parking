@@ -59,8 +59,8 @@
 
 </form>
 <script type="module">
-    import { addReservation } from './assets/services/reservation.js'
-    import { calculatePrice } from './assets/services/functions.js'
+    import { addReservation } from '/assets/services/reservation.js'
+    import { calculatePrice } from '/assets/services/functions.js'
     document.addEventListener('DOMContentLoaded', async () => {
         const reservationForm = document.getElementById("reservation-form")
         const switchDate = document.getElementById('switchReservation')

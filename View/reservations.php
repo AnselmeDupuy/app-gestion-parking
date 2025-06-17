@@ -50,7 +50,7 @@
 
 </div>
 <script type="module">
-import { getReservations } from './assets/services/reservations.js'
+import { getReservations } from '/assets/services/reservations.js'
 
 document.addEventListener('DOMContentLoaded', async () => {
 

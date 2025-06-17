@@ -1,4 +1,4 @@
-import { calculatePrice } from "./functions.js"
+import { calculatePrice } from "assets\services\functions.js"
 
 export const getOrders = async (orderContainer) => {
     const response = await fetch('order', {

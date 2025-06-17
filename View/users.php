@@ -39,7 +39,7 @@
 
 
 <script type="module">
-    import  { getUsers } from './assets/services/users.js';
+    import  { getUsers } from '/assets/services/users.js';
     document.addEventListener('DOMContentLoaded', async () => {
 
     const usersContainer = document.getElementById('table-body-users')
