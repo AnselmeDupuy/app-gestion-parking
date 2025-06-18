@@ -30,7 +30,33 @@ const generateProfile = async (userContainer, user) => {
     userContainer.innerHTML += userRow
 } 
 
+export const editProfile = async (form) => {
 
-export const editUserModal = async (id) => {
+    const formData = new FormData(form)
+    formData.append('edit_profile', '1')
 
+    try {
+        
+        const response = await fetch(`profile`, {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: formData,
+        })
+
+
+        const result =  await response.json()
+        if (result.success) {
+            form.reset();
+            alert('profile mofidied successfully !')
+        } else {
+            alert(`Error editing profile: ${result.message}`)
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert(`Error editing profile: ${error.message}`)
+    }
 }
+
+

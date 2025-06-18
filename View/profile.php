@@ -77,6 +77,7 @@
 
 <div id="edit-profile-modal" class="modal-overlay" style="display:none;">
   <div class="modal-content">
+    <button class="modal-close-btn" id="modal-cross-btn" aria-label="Close">&times;</button>
     <div class="modal-body">
         <form id="edit-profile-form">
         <h2>Edit Profile</h2>
@@ -104,6 +105,8 @@
         const modal = document.getElementById("edit-profile-modal")
         const editBtn = document.getElementById("edit-profile-btn")
         const closeModalBtn = document.getElementById("close-modal-btn")
+        const closeModalCross = document.getElementById("modal-cross-btn");
+
 
         editBtn.addEventListener("click", () => {
             modal.style.display = "flex"
@@ -112,6 +115,14 @@
         closeModalBtn.addEventListener("click", () => {
             modal.style.display = "none"
         })
+
+        closeModalCross.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.style.display = 'none';
+        });
 
 
 

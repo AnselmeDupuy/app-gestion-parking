@@ -21,6 +21,15 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
     }
 }
 
+if(
+    !empty($_SERVER['HTTP_X_REQUESTED_WITH']) 
+    && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest' 
+    && isset($_SESSION['user_id']) 
+    && $_SERVER['REQUEST_METHOD'] === 'POST' 
+    && isset($_POST['edit_profile'])) {
+
+}
+
 
 $user = getUserById($pdo, $_SESSION['user_id']);
 $cars = getCarsByUser($pdo, $_SESSION['user_id']);
