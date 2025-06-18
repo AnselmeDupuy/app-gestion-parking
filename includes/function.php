@@ -27,6 +27,7 @@ function controller(string $componentName, array $array): void
                 require "Controller/$componentName.php";
             } else {
             http_response_code(403);
+            exit;
         }
     }
 

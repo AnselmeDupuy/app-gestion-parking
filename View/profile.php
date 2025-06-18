@@ -6,18 +6,13 @@
         <h5 class="card-title">Profile</h5>
     </div>
     
-    <div class="card-body">
-    <p class="card-text">First Name : <?php echo $user['firstName'] ?></p>
-    <p class="card-text">Last Name : <?php echo $user['surName'] ?></p>
-    <p class="card-text">Email : <?php echo $user['email'] ?></p>
-    <p class="card-text">Phone number : <?php echo $user['phone'] ?></p>
-    <p class="card-text">Inscription Date : <?php echo $user['created_at'] ?></p>
-    <p class="card-text">Group : <?php echo $user['group_id'] === 2 ? 'admin' : 'use';?></p>
-    <p class="card-text">Subscription : <?php echo $user['subbed'] === 1 ? 'premium' : 'free'; ?></p>
-    <form method="post">
-    <button type="submit" class="btn btn-primary" name="edit-profile">Edit Profile</button>
-  </form>
-</div>
+    <div class="card-body card-body-profile">
+
+
+
+
+    </div>
+    <button class="btn btn-primary btn-edit-profile" id="edit-profile-btn" name="edit-profile">Edit Profile</button>
 </div>
 
 <div class="card profile-card card-history">
@@ -68,8 +63,6 @@
                     <td class="card-text"><?php echo $car['car_name'] ?></td>
                     <td class="card-text"><?php echo $car['license_plate'] ?></td>
                     <td class="card-text"><a href="profile&action=remove-car&car-id=<?php echo $car['id'];?>"><i class="fa-solid fa-circle-xmark text-danger"></i></a></td>
-                            
-                        
                 </tr>
 
             <?php endforeach; ?>
@@ -81,3 +74,74 @@
 
     </div>
 </div>
+
+<div id="edit-profile-modal" class="modal-overlay" style="display:none;">
+  <div class="modal-content">
+    <div class="modal-body">
+        <form id="edit-profile-form">
+        <h2>Edit Profile</h2>
+        <label>First Name: <input type="text" name="firstName" required></label>
+        <label>Last Name: <input type="text" name="surName" required></label>
+        <label>Email: <input type="email" name="email" required></label>
+        <label>Phone: <input type="number" name="phone" required></label>
+        <label>New Password: <input type="password" name="password"></label>
+        <label>Confirm New Password: <input type="password" name="password-confirm"></label>
+        <div>
+            <button class="btn btn-primary" type="button" id="close-modal-btn">Cancel</button>
+            <button class="btn btn-primary" type="submit">Save</button>
+        </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+
+<script type="module">
+    import { getUserById } from './assets/services/profile.js'
+    document.addEventListener('DOMContentLoaded', async () => {
+        const userContainer = document.querySelector('.card-body-profile')
+        const userId = new URLSearchParams(window.location.search).get('user_id')
+        const modal = document.getElementById("edit-profile-modal")
+        const editBtn = document.getElementById("edit-profile-btn")
+        const closeModalBtn = document.getElementById("close-modal-btn")
+
+        editBtn.addEventListener("click", () => {
+            modal.style.display = "flex"
+        })
+
+        closeModalBtn.addEventListener("click", () => {
+            modal.style.display = "none"
+        })
+
+
+
+        document.getElementById("edit-profile-form").addEventListener("submit", async (e) => {
+            e.preventDefault()
+            const formData = new FormData(e.target)
+            const data = Object.fromEntries(formData.entries())
+            try {
+                const response = await fetch(`profile&action=edit-profile&user_id=${userId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                if (response.ok) {
+                    modal.style.display = "none"
+                    location.reload()
+                } else {
+                    console.error('Failed to update profile')
+                }
+            } catch (error) {
+                console.error('Error:', error)
+            }
+        })
+
+        getUserById(userId, userContainer)
+
+
+
+
+    })
+    </script>

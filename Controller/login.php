@@ -30,10 +30,11 @@ if (isset($_POST["login_button"])) {
 
                 $details = "Login successful";
                 logAction($pdo, $action, $details." ".$_SESSION['email']);
-
+                
                 header("Location: home");
-
                 exit();
+
+
             } elseif ($user['is_active'] !== 1 && $isMatchPassword && is_array($user)){
                 $errors[] = "account is inactive";
                 $details = "Login attempt failed, account is inactive";
@@ -53,6 +54,7 @@ if (isset($_POST["login_button"])) {
         $details = "Login attempt failed, missing input";
         logAction($pdo, $action, $details);
     }
+
 }
 
 

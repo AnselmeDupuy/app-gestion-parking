@@ -10,6 +10,7 @@
     require "includes/function.php";
     require "includes/logs.php";
     require  './vendor/autoload.php';
+
     $dotenv = Dotenv\Dotenv::createImmutable(".");
     $dotenv->safeLoad(); 
     $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
@@ -49,6 +50,7 @@
             if (!file_exists("Controller/$componentName.php")) {
                 http_response_code(403);
                 header('Location: home');
+                exit();
             }
 
             if (isAdmin()) {
@@ -87,7 +89,7 @@
 </head>
 <body data-bs-theme="dark">
     <header>
-    <?php require "_partials/navbar.php"; ?>
+    <?php require_once "_partials/navbar.php"; ?>
     </header>
     <main>
         <?php
@@ -95,6 +97,7 @@
             if (!file_exists("Controller/$componentName.php")) {
                 http_response_code(403);
                 header('Location: home');
+                exit();
             }
 
             if (isAdmin()) {

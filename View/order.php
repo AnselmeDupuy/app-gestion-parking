@@ -21,7 +21,7 @@
 </table>
 <script src="https://www.paypal.com/sdk/js?client-id=<?php echo $_ENV['PAYPAL_CLIENT_ID']; ?>&currency=EUR"></script>
 <script type="module">
-import { getOrders, cancelOrder } from '/assets/services/order.js'
+import { getOrders, cancelOrder } from './assets/services/order.js'
 
 document.addEventListener('DOMContentLoaded', async () => {
   

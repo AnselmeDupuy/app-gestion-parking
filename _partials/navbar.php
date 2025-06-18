@@ -6,6 +6,9 @@
     import { getUser, isAdmin, isUser, isGuest } from "./assets/services/navBar.js"
 
     const user = "<?php echo isset($_SESSION['group']) ? $_SESSION['group'] : 'guest'; ?>"
+    const id = "<?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : ''; ?>"
+
+
     console.log(user)
 
     document.addEventListener('DOMContentLoaded', async () => {
@@ -25,7 +28,7 @@
             navbarLinks.innerHTML += `<a href="reservations">Reservations</a>`
             navbarLinks.innerHTML += `<a href="reservation">reservation</a>`
             navbarLinks.innerHTML += `<a href="dashboard">DashBoard</a>`
-            navbarLinks.innerHTML += `<a href="profile">Profile</a>`
+            navbarLinks.innerHTML += `<a href="profile?user_id=${id}">Profile</a>`
             navbarLinks.innerHTML += `<a href="parkings">Parking Spots</a>`
             navbarLinks.innerHTML += `<a href="order">Order</a>`
             navbarLinks.innerHTML += `<a href="home&disconnect=true">Logout</a>`
@@ -33,7 +36,7 @@
             navbarLinks.innerHTML += `<a href="home">Home</a>`
             navbarLinks.innerHTML += `<a href="dashboard">DashBoard</a>`
             navbarLinks.innerHTML += `<a href="reservation">reservation</a>`
-            navbarLinks.innerHTML += `<a href="profile">Profile</a>`
+            navbarLinks.innerHTML += `<a href="profile?user_id=${id}">Profile</a>`
             navbarLinks.innerHTML += `<a href="order">Order</a>`
             navbarLinks.innerHTML += `<a href="home&disconnect=true">Logout</a>`
         } else if (isGuest(user)) {
