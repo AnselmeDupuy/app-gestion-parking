@@ -98,7 +98,7 @@
 
 
 <script type="module">
-    import { getUserById } from './assets/services/profile.js'
+    import { getUserById, editProfile } from './assets/services/profile.js'
     document.addEventListener('DOMContentLoaded', async () => {
         const userContainer = document.querySelector('.card-body-profile')
         const userId = new URLSearchParams(window.location.search).get('user_id')
@@ -128,26 +128,18 @@
 
         document.getElementById("edit-profile-form").addEventListener("submit", async (e) => {
             e.preventDefault()
-            const formData = new FormData(e.target)
-            const data = Object.fromEntries(formData.entries())
-            try {
-                const response = await fetch(`profile&action=edit-profile&user_id=${userId}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                })
-                if (response.ok) {
-                    modal.style.display = "none"
-                    editProfile(userId, data)
-                    location.reload()
-                } else {
-                    console.error('Failed to update profile')
+            const form = e.target
+            const formData = new FormData(form)
+
+            for (const [key, value] of formData.entries()) {
+                if (value.trim() === '') {
+                    formData.delete(key)
                 }
-            } catch (error) {
-                console.error('Error:', error)
             }
+            await editProfile(formData)
+            form.reset()
+            modal.style.display = "none"
+            getUserById(userId, userContainer)
         })
 
         getUserById(userId, userContainer)

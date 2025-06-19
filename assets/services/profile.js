@@ -30,9 +30,8 @@ const generateProfile = async (userContainer, user) => {
     userContainer.innerHTML += userRow
 } 
 
-export const editProfile = async (form) => {
+export const editProfile = async (formData) => {
 
-    const formData = new FormData(form)
     formData.append('edit_profile', '1')
 
     try {
@@ -48,7 +47,6 @@ export const editProfile = async (form) => {
 
         const result =  await response.json()
         if (result.success) {
-            form.reset();
             alert('profile mofidied successfully !')
         } else {
             alert(`Error editing profile: ${result.message}`)

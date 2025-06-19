@@ -30,19 +30,34 @@ if(
 
 
     $userId = $_SESSION['user_id'];
-    $firstName = $_POST['first_name'] ?? null;
-    $lastName = $_POST['last_name'] ?? null;
+    $firstName = $_POST['firstName'] ?? null;
+    $surName = $_POST['surName'] ?? null;
     $email = $_POST['email'] ?? null;
     $phone = $_POST['phone'] ?? null;
 
-    if ($firstName && $lastName && $email) {
-        $result = updateInfo($pdo, $firstName, $lastName, $email, $phone, $userId);
+    $result = updateInfo($pdo, $userId, $firstName, $surName, $email, $phone);
+    if ($result) {
+        header('Content-Type: application/json');
+        echo json_encode(['success' => true]);
+        exit();
+    }
+
+
+    if (isset($_POST['password']) && isset($_POST['password-confirm']) && $_POST['password'] === $_POST['password-confirm']) {
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $result = updatePassword($pdo, $userId, $password);
         if ($result) {
             header('Content-Type: application/json');
             echo json_encode(['success' => true]);
             exit();
         }
     }
+
+
+    header('Content-Type: application/json');
+    echo json_encode(['success' => true]);
+    exit();
+
 }
 
 $user = getUserById($pdo, $_SESSION['user_id']);

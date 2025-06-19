@@ -1,5 +1,13 @@
 
-<div id="errors"></div>
+<div id="errors">
+    <?php if (!empty($errors)): ?>
+    <div class="alert alert-danger">
+        <?php foreach ($errors as $error): ?>
+            <div><?php echo htmlspecialchars($error); ?></div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+</div>
 <form method="POST" id="login-form" class="login-form">
     <h1 class="text-center">Connexion</h1>
     <div class="mb-3">

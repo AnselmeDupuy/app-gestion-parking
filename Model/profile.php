@@ -3,7 +3,7 @@
 function getUserById(PDO $pdo, int $id)
 {
     try{
-        $res = $pdo->prepare('SELECT * FROM `users` WHERE `id` = :id');
+        $res = $pdo->prepare('SELECT id, firstName, surName, email, phone, is_active, created_at, group_id, subbed FROM `users` WHERE `id` = :id');
         $res->bindParam(':id', $id, PDO::PARAM_INT);
         $res->execute();
         return $res->fetch();
@@ -63,26 +63,26 @@ function removeCar(PDO $pdo, int $carId)
     }
 }
 
-function updateInfo(PDO $pdo, ?string $firstName, ?string $surName, ?string $email, ?string $phone, int $id) {
+function updateInfo(PDO $pdo, int $id, ?string $firstName = null, ?string $surName = null, ?string $email = null, ?string $phone = null) {
     $conditions = [];
     $params = [':id' => $id];
 
-    if ($firstName !== null) {
-        $conditions[] = '`first_name` = :first_name';
-        
+    if ($firstName !== null && $firstName !== '') {
+        $conditions[] = '`firstName` = :firstName';
+        $params[':firstName'] = $firstName;
     }
 
-    if ($surName !== null) {
-        $conditions[] = '`sur_name` = :sur_name';
-        $params[':sur_name'] = $surName;
+    if ($surName !== null && $surName !== '') {
+        $conditions[] = '`surName` = :surName';
+        $params[':surName'] = $surName;
     }
 
-    if ($email !== null) {
+    if ($email !== null && $email !== '') {
         $conditions[] = '`email` = :email';
         $params[':email'] = $email;
     }
 
-    if ($phone !== null) {
+    if ($phone !== null && $phone !== '') {
         $conditions[] = '`phone` = :phone';
         $params[':phone'] = $phone;
     }
@@ -94,5 +94,16 @@ function updateInfo(PDO $pdo, ?string $firstName, ?string $surName, ?string $ema
     $query = 'UPDATE `users` SET ' . implode(', ', $conditions) . ' WHERE `id` = :id';
     $stmt = $pdo->prepare($query);
     return $stmt->execute($params);
+}
+
+function updatePassword(PDO $pdo,int $userId,string $password) {
+    try {
+        $res = $pdo->prepare('UPDATE `users` SET `password` = :password WHERE `id` = :id');
+        $res->bindValue(':id', $userId, PDO::PARAM_INT);
+        $res->bindValue(':password', $password, PDO::PARAM_STR);
+        return $res->execute();
+    } catch (Exception $e) {
+        echo 'Error: ' . $e->getMessage();
+    }
 }
 
