@@ -10,7 +10,6 @@
     require "includes/function.php";
     require "includes/logs.php";
     require  './vendor/autoload.php';
-
     $dotenv = Dotenv\Dotenv::createImmutable(".");
     $dotenv->safeLoad(); 
     $basePath = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/';
@@ -40,8 +39,8 @@
     
  
     $adminPages = ['users', 'logs', 'reservation', 'parkings', 'profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login', 'reservations', 'reservation', 'order'];
-    $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'inscription', 'contact', 'reservation', 'order'];
-    $guestPages = ['home', 'login', 'inscription', 'contact'];
+    $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'inscription', 'contact', 'admin-login', 'reservation', 'order'];
+    $guestPages = ['home', 'login', 'inscription', 'contact', 'admin-login'];
 
     $componentName = isset($_GET["component"]) ? cleanString($_GET["component"]) : "home";
 
@@ -50,7 +49,6 @@
             if (!file_exists("Controller/$componentName.php")) {
                 http_response_code(403);
                 header('Location: home');
-                exit();
             }
 
             if (isAdmin()) {
@@ -89,7 +87,7 @@
 </head>
 <body data-bs-theme="dark">
     <header>
-    <?php require_once "_partials/navbar.php"; ?>
+    <?php require "_partials/navbar.php"; ?>
     </header>
     <main>
         <?php
@@ -97,7 +95,6 @@
             if (!file_exists("Controller/$componentName.php")) {
                 http_response_code(403);
                 header('Location: home');
-                exit();
             }
 
             if (isAdmin()) {

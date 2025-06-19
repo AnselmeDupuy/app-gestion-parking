@@ -1,4 +1,4 @@
-    <h2>park'Heure</h2>
+    <h2>Parking</h2>
     <nav class="navbarLinks">
 
     </nav>
@@ -7,9 +7,6 @@
 
     const user = "<?php echo isset($_SESSION['group']) ? $_SESSION['group'] : 'guest'; ?>"
     const id = "<?php echo isset($_SESSION['user_id']) ? $_SESSION['user_id'] : ''; ?>"
-
-
-    console.log(user)
 
     document.addEventListener('DOMContentLoaded', async () => {
         const navbarLinks = document.querySelector('.navbarLinks')

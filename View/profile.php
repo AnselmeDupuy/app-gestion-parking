@@ -81,10 +81,10 @@
     <div class="modal-body">
         <form id="edit-profile-form">
         <h2>Edit Profile</h2>
-        <label>First Name: <input type="text" name="firstName" required></label>
-        <label>Last Name: <input type="text" name="surName" required></label>
-        <label>Email: <input type="email" name="email" required></label>
-        <label>Phone: <input type="number" name="phone" required></label>
+        <label>First Name: <input type="text" name="firstName" placeholder="<?php echo htmlspecialchars($user['firstName']); ?>" ></label>
+        <label>Last Name: <input type="text" name="surName" placeholder="<?php echo htmlspecialchars($user['surName']); ?>" ></label>
+        <label>Email: <input type="email" name="email" placeholder="<?php echo htmlspecialchars($user['email']); ?>" ></label>
+        <label>Phone: <input type="number" name="phone" placeholder="<?php echo htmlspecialchars($user['phone']); ?>" ></label>
         <label>New Password: <input type="password" name="password"></label>
         <label>Confirm New Password: <input type="password" name="password-confirm"></label>
         <div>
@@ -140,6 +140,7 @@
                 })
                 if (response.ok) {
                     modal.style.display = "none"
+                    editProfile(userId, data)
                     location.reload()
                 } else {
                     console.error('Failed to update profile')
