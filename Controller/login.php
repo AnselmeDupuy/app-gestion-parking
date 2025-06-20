@@ -40,13 +40,13 @@ if (isset($_POST["login_button"])) {
                 $details = "Login attempt failed, account is inactive";
                 logAction($pdo, $action, $details." ".$user['email']);
             } else {
-                $errors[] = "authentication failed, invalid password";
+                $errors[] = "authentication failed, invalid information";
                 $details = "Login attempt failed, invalid password";
                 logAction($pdo, $action, $details." ".$user['email']);
             }
         } else {
             $errors[] = "user invalid";
-            $details = "Login attempt failed, invalid user";
+            $details = "Login attempt failed, invalid information";
             logAction($pdo, $action, $details);
         }
     } else {

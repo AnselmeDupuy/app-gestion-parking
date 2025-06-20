@@ -83,7 +83,7 @@
                 const end = new Date(`${endDate}T${endTime}`)
                 let price = 0
                 if (end > start) {
-                    price = calculatePrice(start, end, 1.00)
+                    price = calculatePrice(start, end, 1.70)
                 }
                 priceContainer.textContent = `Price (prevision of cost based on normal week Days) : ${price} €`
             } else {

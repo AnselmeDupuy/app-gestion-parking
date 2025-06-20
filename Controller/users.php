@@ -29,9 +29,10 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
             header('Content-Type: application/json');
             echo json_encode(['status' => 'success', 'message' => 'User deleted successfully.']);
         } else {
+
             logAction($pdo, 'delete_user', "Failed to delete user ID: $id by admin: " . $_SESSION['user_id']);
             header('Content-Type: application/json', true, 500);
-            echo json_encode(['status' => 'error', 'message' => 'Failed to delete user.']);
+            echo json_encode(['status' => 'error', 'message' => 'Failed to delete user.'. $result]);
         }
         exit();
     }

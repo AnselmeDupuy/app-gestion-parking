@@ -50,7 +50,7 @@
 
 </div>
 <script type="module">
-import { getReservations } from './assets/services/reservations.js'
+import { getReservations, deleteReservation } from './assets/services/reservations.js'
 
 document.addEventListener('DOMContentLoaded', async () => {
 
@@ -71,6 +71,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         const checkedBtn = document.querySelector('.btn-reservations:checked')
         const status = checkedBtn ? checkedBtn.getAttribute('data-id') : 'waiting'
         await getReservations(reservationsContainer, status, paginationContainer, 1, search)
+    })
+
+    const deleteButtons = document.querySelectorAll('.delete-reservation-buttons')
+    deleteButtons.forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+            e.preventDefault()
+            const reservationId = btn.getAttribute('data-id')
+            if(confirm('Do you want to delete this reservation ?')) {
+                await deleteReservation(reservationId)
+            }
+        })
     })
 
     statusBtns.forEach(btn => {

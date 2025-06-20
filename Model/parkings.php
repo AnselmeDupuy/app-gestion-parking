@@ -54,7 +54,4 @@ function getHandiParkings(PDO $pdo)
     }
 }
 
-
-
-
 ?>

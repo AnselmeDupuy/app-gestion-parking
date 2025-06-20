@@ -1,15 +1,17 @@
+body {
+    max-width: 100%;
+}
+
 /* CSS for the dashboard page */
 
 .dashboardBody {
     display: flex;
-    flex-direction: row;
     height: 100%;
     width: 100%;
 }
 
 .dashboardPaymentBody {
     display: flex;
-    flex-direction: column;
     width: 40%;
     margin-left: 10%;
     height: 100%;
@@ -17,21 +19,39 @@
 
 .dashboardCardBody { 
     font-family: Arial, sans-serif; 
+    display: flex;
+    flex-direction: column;
     padding: 2rem; 
-    width: 40%;
+    width: 100%;
     height: 100%;
-    
+}
+
+.dashBoardh1 {
+    align-self:center;
+}
+
+.cardsLists {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
 }
 
 .dashBoardCard h3, .dashBoardCard p {
     color: rgb(255, 255, 255);
 }
 
+.dashBoardh1 {
+    margin-bottom: 2%;
+}
+
 .dashBoardCard {
     background: #333;
     padding: 1rem;
     border-radius: 8px;
-    width: 100%;
+    width: 30%;
+    border: 1px solid #ccc;
 }
 
 /* CSS for order page*/
@@ -125,28 +145,87 @@
 }
 
 
-/* CSS for the partials */
+/* CSS for the partials navbar / footer */
 
-.dropdown-item:hover {
-    background-color: transparent;
+.navbar{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+    padding: 2%;
 }
 
 header {
     background-color: #2c3e50;
     color: #fff;
-    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+
+.navbarLinks {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 60%;
+}
+.dropdown-toggle {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+}
+
 .navbarLinks a {
     color: #fff;
-    margin-left: 1.5rem;
+    margin-left: 1%;
     text-decoration: none;
     font-weight: bold;
 }
 
+.navbarLinks a:hover, .dropdown-toggle:hover {
+    background-color: #34495e;
+    border-radius: 4px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: none;
+}
+
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    background-color: #1f2c38;
+    border-radius: 4px;
+    padding: 0;
+    margin: 0.25rem 0;
+    list-style: none;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    background-color: #0076eb;
+    width: 80%;
+    margin-top: 1%;
+    
+}
+
+.dropdown-item:hover {
+    background-color: transparent;
+}
 
 footer {
     text-align: center;
@@ -266,6 +345,13 @@ footer a {
 #edit-profile-form button[type="submit"] {
     background-color: #0d6efd;
     color: white;
+    height: 100%;
+}
+
+.modal-content {
+    height: 96%;
+    margin-bottom: 2%;
+    margin-top: 2%;
 }
 
 .modal-close-btn {
@@ -305,10 +391,20 @@ footer a {
     margin-bottom: 2%;
 }
 
+.delete-btn {
+    flex-wrap: nowrap;
+}
+
 /* CSS for Parkings Spot page*/
 .parkings-list{
     margin-left: 7.5%;
     max-width: 85%;
+    margin-bottom: 1%;
+}
+
+.parkings-title {
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 
 .parkings-search{

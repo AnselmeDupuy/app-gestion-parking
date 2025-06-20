@@ -17,6 +17,19 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
         exit;
     }
 
+
+    if(isset($_GET['delete']) && isset($_GET['reservationId'])) {
+        $reservationId = cleanString($_GET['reservationId']);
+        $result = cancelReservation($pdo, $reservationId);
+        if($result) {
+            header('Content-Type: application/json');
+            echo json_encode(['success' => true, 'message' => 'Reservation cancelled successfully']);
+        } else {
+            header('Content-Type: application/json', true, 500);
+            echo json_encode(['success' => false, 'message' => 'Failed to cancel reservation']);
+        }
+        exit;
+    }
 }
 
 

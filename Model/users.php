@@ -65,6 +65,7 @@ function deleteUser($pdo, $id)
         $res->bindValue(':id', $id, PDO::PARAM_INT);
         return $res->rowCount();
     } catch (Exception $e) {
+        error_log("error : " . $e->getMessage());
         $errors[] = "delete user issue";
         return false;
     }

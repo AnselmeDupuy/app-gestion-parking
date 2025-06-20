@@ -68,3 +68,16 @@ function getAllReservations(PDO $pdo, string $status = "waiting", ?string $searc
         ];
     }
 }
+
+function cancelReservation(PDO $pdo, int $reservationId)
+{
+    try {
+        $query = 'UPDATE reservations SET status = "canceled" WHERE id = :reservationId';
+        $stmt = $pdo->prepare($query);
+        $stmt->bindValue(':reservationId', $reservationId, PDO::PARAM_INT);
+        return $stmt->execute();
+    } catch (Exception $e) {
+        error_log("Error cancelling reservation: " . $e->getMessage());
+        return false;
+    }
+}

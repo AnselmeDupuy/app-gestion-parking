@@ -39,7 +39,11 @@ const generateReservations = async (reservations, reservationsContainer) => {
         <td>${reservation.end_time}</td>
         <td>${reservation.created_at}</td>
         <td>${reservation.parking_status}</td>
-        <td><a class="delete-reservation-buttons" data-id="${reservation.id}" href="#"><i class="fa-solid fa-circle-xmark text-danger reservation-cross"></i></a></td>
+        <td>
+            <a class="delete-reservation-buttons" data-id="${reservation.id}" href="#">
+                <i class="fa-solid fa-circle-xmark text-danger reservation-cross"></i>
+            </a>
+        </td>
 
         </tr>`
         reservationsContainer.innerHTML += reservationRow
@@ -75,4 +79,20 @@ const updatePagination = (pages, status, paginationContainer, currentPage, reser
 
 
     }
+}
+
+export const deleteReservation = async (reservationId) => {
+    const response = await fetch(`reservations?delete=true&reservationId=${reservationId}`, {
+        method: 'GET',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+        },
+    })
+
+    if (!response.ok) {
+        throw new Error(`Error deleting reservation: ${response.status}`)
+    }
+    const data = await response.json()
+    console.log(data)
+    return data
 }
