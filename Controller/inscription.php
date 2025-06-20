@@ -27,6 +27,10 @@ if (isset($_POST["create_user_button"])) {
     if ($password !== $confirmation) {
         $errors[] = "Le mot de passe et sa confirmation sont différents";
         logAction($pdo, $action, $errors[0]);
+
+    } elseif (strlen($password) < 12) {
+        $errors[] = "Password must be at least 12 characters long.";
+
     } elseif ($isPhoneNumber === true && $password === $confirmation) {
         $password = password_hash($password, PASSWORD_DEFAULT);
         $newUser = addUser($pdo, $password, $email, $phone, $firstName, $lastName);
@@ -38,13 +42,14 @@ if (isset($_POST["create_user_button"])) {
         if ($newUser === true) {
             header("Location: home");
             exit();
+            
         } else {
             $errors[] = $newUser;
             $details = !empty($newUser) ? $email."User creation failed" : $email."User created successfully";
             logAction($pdo, $action, $details);
         }
     } else {
-        $errors[] = "Invalid phone number";
+        $errors[] = "Invalid phone number, must contain 10 digits";
         logAction($pdo, $action, $errors[0]);
     };
 }

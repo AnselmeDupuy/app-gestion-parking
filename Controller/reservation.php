@@ -8,7 +8,9 @@ require_once "Model/profile.php";
 require_once "Model/dashboard.php";
 
 if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest' && isset($_POST['add_reservation'])) {
-    $date = cleanString($_POST['reservation_date']) ?? null;
+    
+    if (isset($_POST['reservation_start_date']) && isset($_POST['reservation_start_time']) && isset($_POST['reservation_end_time']) && isset($_POST['vehicle_id']) && isset($_POST['parking_type'])) {
+    $startDate = cleanString($_POST['reservation_start_date']) ?? null;
     $startTime = cleanString($_POST['reservation_start_time']) ?? null;
     $endTime = cleanString($_POST['reservation_end_time']) ?? null;
     $vehicleId = cleanString($_POST['vehicle_id']) ?? null;
@@ -16,12 +18,36 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
     if ($type !== 'basic' && $type !== 'handicapped' && $type !== 'electric') {
         $type = null;
     };
+    if(isset($_POST['reservation_end_date'])) {
+        $endDate = cleanString($_POST['reservation_end_date']) ?? null;
+    }
+
+
     $status = $_SESSION['subscription_status'];
     $userId = $_SESSION['user_id'] ?? null;
     $dateCheck = true;
+    }
 
-    $startDateTime = "$date"." "."$startTime";
-    $endDateTime = "$date"." "."$endTime";
+    if (isset($endDate) && $endDate !== null) {
+        if (date($endDate) > date($startDate)){
+            $startDateTime = "$startDate"." "."$startTime";
+            $endDateTime = "$endDate"." "."$endTime";
+        } elseif (date($endDate) === date($startDate)) {
+            $startDateTime = "$startDate"." "."$startTime";
+            $endDateTime = "$endDate"." "."$endTime";
+        } else {
+            logAction($pdo, 'add_reservation', "starting date is after ending date for user ID: $userId");
+            header('Content-Type: application/json', true, 400);
+            echo json_encode(['success' => false, 'message' => 'Incorrect starting date is after ending date.']);
+            exit();
+        }
+
+    } else {
+        $startDateTime = "$startDate"." "."$startTime";
+        $endDateTime = "$startDate"." "."$endTime";
+    }
+
+
 
     if (date($startDateTime) > date($endDateTime) || date($startDateTime) === date($endDateTime)) {
         $dateCheck = false;
@@ -78,7 +104,10 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'
         echo json_encode(['success' => false, 'message' => 'Invalid input data.']);
         exit();
     }
-
+    
+    header('Content-Type: application/json');
+    echo json_encode(['success' => false, 'non' => 'invalid ajax']);
+    exit();
 }
 
 $cars = getCarsByUser($pdo, $_SESSION['user_id']);

@@ -1,11 +1,11 @@
 <?php
     session_start();
 
-    function customError($errno, $errstr) {
-        echo "<b>Error:</b> [$errno] $errstr";
-    }
+    // function customError($errno, $errstr) {
+    //     echo "<b>Error:</b> [$errno] $errstr";
+    // }
 
-    set_error_handler("customError", E_ALL);
+    // set_error_handler("customError", E_ALL);
 
     require "includes/function.php";
     require "includes/logs.php";
@@ -38,9 +38,9 @@
     }
     
  
-    $adminPages = ['users', 'logs', 'reservation', 'parkings', 'profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login', 'reservations', 'reservation', 'order'];
-    $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login', 'reservation', 'order'];
-    $guestPages = ['home', 'login', 'inscription', 'contact', 'admin-login'];
+    $adminPages = ['users', 'logs', 'reservation', 'parkings', 'profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'login', 'inscription', 'contact', 'admin-login', 'reservations', 'reservation', 'order', 'contact'];
+    $userPages = ['profile', 'dashboard', 'reservation', 'edit-profile', 'home', 'inscription', 'contact', 'admin-login', 'reservation', 'order', 'contact'];
+    $guestPages = ['home', 'login', 'inscription', 'contact', 'admin-login', 'contact'];
 
     $componentName = isset($_GET["component"]) ? cleanString($_GET["component"]) : "home";
 

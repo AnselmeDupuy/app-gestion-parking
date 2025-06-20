@@ -100,7 +100,10 @@ document.querySelectorAll('.delete-btn').forEach(button => {
     button.addEventListener('click', async (e) => {
         e.preventDefault()
         const userId = e.target.getAttribute('data-id')
-        await deleteUser(userId)
+        if (confirm('Are you sure you want to delete this user?')) {
+            await deleteUser(userId)
+        }
+        
     })
 })
 }

@@ -1,5 +1,10 @@
-<!-- <link rel="stylesheet" href="includes/componentsCss/inscription.css"> -->
-
+<?php if (!empty($errors)): ?>
+    <div class="alert alert-danger">
+        <?php foreach ($errors as $error): ?>
+            <div><?php echo htmlspecialchars($error); ?></div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
 <form class="inscription-form" method="post">
   <div class="mb-3">
     <label for="email" class="form-label">Email address</label>
@@ -23,12 +28,12 @@
 
   <div class="mb-3">
     <label for="password" class="form-label">Password</label>
-    <input type="password" name="password" class="form-control" id="password" required>
+    <input type="password" name="password" class="form-control" id="password" minlength="12" required>
   </div>
 
   <div class="mb-3">
     <label for="password-confirm" class="form-label">Confirm Password</label>
-    <input type="password" name="password-confirm" class="form-control" id="password-confirm" required>
+    <input type="password" name="password-confirm" class="form-control" id="password-confirm" minlength="12" required>
   </div>
 
   <button type="submit" class="btn btn-primary" name="create_user_button">Submit</button>

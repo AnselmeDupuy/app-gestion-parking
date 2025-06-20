@@ -1,15 +1,17 @@
+body {
+    max-width: 100%;
+}
+
 /* CSS for the dashboard page */
 
 .dashboardBody {
     display: flex;
-    flex-direction: row;
     height: 100%;
     width: 100%;
 }
 
 .dashboardPaymentBody {
     display: flex;
-    flex-direction: column;
     width: 40%;
     margin-left: 10%;
     height: 100%;
@@ -17,21 +19,39 @@
 
 .dashboardCardBody { 
     font-family: Arial, sans-serif; 
+    display: flex;
+    flex-direction: column;
     padding: 2rem; 
-    width: 40%;
+    width: 100%;
     height: 100%;
-    
+}
+
+.dashBoardh1 {
+    align-self:center;
+}
+
+.cardsLists {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 1rem;
+    width: 100%;
 }
 
 .dashBoardCard h3, .dashBoardCard p {
     color: rgb(255, 255, 255);
 }
 
+.dashBoardh1 {
+    margin-bottom: 2%;
+}
+
 .dashBoardCard {
     background: #333;
     padding: 1rem;
     border-radius: 8px;
-    width: 100%;
+    width: 30%;
+    border: 1px solid #ccc;
 }
 
 /* CSS for order page*/
@@ -125,28 +145,87 @@
 }
 
 
-/* CSS for the partials */
+/* CSS for the partials navbar / footer */
 
-.dropdown-item:hover {
-    background-color: transparent;
+.navbar{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+    padding: 2%;
 }
 
 header {
     background-color: #2c3e50;
     color: #fff;
-    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+
+.navbarLinks {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 60%;
+}
+.dropdown-toggle {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+}
+
 .navbarLinks a {
     color: #fff;
-    margin-left: 1.5rem;
+    margin-left: 1%;
     text-decoration: none;
     font-weight: bold;
 }
 
+.navbarLinks a:hover, .dropdown-toggle:hover {
+    background-color: #34495e;
+    border-radius: 4px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: none;
+}
+
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    background-color: #1f2c38;
+    border-radius: 4px;
+    padding: 0;
+    margin: 0.25rem 0;
+    list-style: none;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    text-decoration: none;
+}
+
+.dropdown-menu a:hover {
+    background-color: #0076eb;
+    width: 80%;
+    margin-top: 1%;
+    
+}
+
+.dropdown-item:hover {
+    background-color: transparent;
+}
 
 footer {
     text-align: center;
@@ -178,6 +257,119 @@ footer a {
     margin-bottom: 3%;
 }
 
+#accordion-car {
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+.btn-edit-profile {
+    width: 40%;
+    margin-left: 30%;
+    color: rgb(0, 0, 0);
+    background-color: rgb(0, 110, 255);
+    margin-top: 2%;
+    margin-bottom: 2%;
+    border-radius: 10px;
+    border: none;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000;
+
+}
+.modal-content {
+    background: #222;
+    color: #fff;
+    display: flex; /* Key for side-by-side layout */
+    padding: 2em;
+    border-radius: 8px;
+    width: 80%;
+    height: 80vh;
+    min-width: 600px;
+}
+
+.modal-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-right: 1em;
+}
+
+#edit-profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    height: 100%;
+}
+
+#edit-profile-form label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.95rem;
+}
+
+#edit-profile-form input {
+    margin-top: 0.3em;
+    padding: 0.6em;
+    border: none;
+    border-radius: 5px;
+}
+
+.form-buttons {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1em;
+}
+
+.form-buttons button {
+    padding: 0.6em 1.2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#close-modal-btn {
+    background-color: #888;
+    color: white;
+}
+
+#edit-profile-form button[type="submit"] {
+    background-color: #0d6efd;
+    color: white;
+    height: 100%;
+}
+
+.modal-content {
+    height: 96%;
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 18px;
+    right: 30px;
+    background: transparent;
+    border: none;
+    font-size: 2.2rem;
+    color: #fff;
+    cursor: pointer;
+    z-index: 10;
+    line-height: 1;
+}
+.modal-close-btn:focus {
+    outline: none;
+}
+
 /* CSS for the users page */
 
 .users-list {
@@ -199,10 +391,20 @@ footer a {
     margin-bottom: 2%;
 }
 
+.delete-btn {
+    flex-wrap: nowrap;
+}
+
 /* CSS for Parkings Spot page*/
 .parkings-list{
     margin-left: 7.5%;
     max-width: 85%;
+    margin-bottom: 1%;
+}
+
+.parkings-title {
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 
 .parkings-search{
@@ -222,6 +424,23 @@ footer a {
     max-width: 85%;
 }
 
+.reservation-form {
+    width:80%;
+    margin-left:10%;
+    margin-bottom: 2%;
+    margin-top:2%;
+}
+
+#submit-btn-reservation {
+    width: 40%;
+    margin-left: 30%;
+    color: rgb(0, 0, 0);
+    background-color: rgb(0, 110, 255);
+    margin-top: 2%;
+    border-radius: 10px;
+    border: none;
+}
+
 
 /* CSS for the reservations admin side*/
 
@@ -235,4 +454,82 @@ footer a {
     width: 40%;
     margin-top: 1%;
     margin-left: 30%;
+}
+
+.reservations-search {
+    margin-left: 7.5%;
+    max-width: 85%;
+    margin-top: 2%;
+}
+
+.pagination-reservations{
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+}
+
+/* CSS for the contact page*/
+.contact-container {
+    max-width: 400px;
+    margin: 4em auto;
+    background: #525252;
+    color: #fff;
+    padding: 2em 2em 1em 2em;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+
+.contact-container h2 {
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.contact-form label {
+    font-size: 1rem;
+    margin-bottom: 0.3em;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 0.7em;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: #333;
+    color: #fff;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: 2px solid #0d6efd;
+    background: #222;
+}
+
+.contact-form button {
+    background: #0d6efd;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.8em;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.contact-form button:hover {
+    background: #2a5ca7;
+}
+
+.contact-success {
+    text-align: center;
+    color: #ffffff;
+    font-size: 1.1rem;
+    margin-top: 2em;
 }

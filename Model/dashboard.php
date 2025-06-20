@@ -28,6 +28,7 @@ function getReservationsByUserConfirmed(PDO $pdo, int $userId)
                                 FROM `reservations`
                                 JOIN `cars` ON reservations.car_id  = cars.id  
                                 WHERE reservations.user_id = :user_id AND reservations.status ="confirmed"
+                                AND reservations.end_time >= NOW()
                                 ORDER BY `start_time` ASC');
         
         $res->bindValue(':user_id', $userId, PDO::PARAM_INT);
