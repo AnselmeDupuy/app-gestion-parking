@@ -42,7 +42,7 @@
             navbarLinks.innerHTML += `<a href="home">Home</a>`
             navbarLinks.innerHTML += `<a href="inscription">Register</a>`
             navbarLinks.innerHTML += `<a href="login">Login</a>`
-            navbarLinks.innerHTML += `<a href="#">Contact</a>`
+            navbarLinks.innerHTML += `<a href="contact">Contact</a>`
         }
     })
 </script>
