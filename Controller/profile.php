@@ -34,6 +34,17 @@ if(
     $surName = $_POST['surName'] ?? null;
     $email = $_POST['email'] ?? null;
     $phone = $_POST['phone'] ?? null;
+    if ($phone !== null) {
+        $phone = preg_replace("/[^0-9]/", '', $phone);
+        if (strlen($phone) === 10) {
+            $isPhoneNumber = true;  
+        } else {
+            $isPhoneNumber = null;
+        }
+    }
+
+
+
 
     $result = updateInfo($pdo, $userId, $firstName, $surName, $email, $phone);
     if ($result) {
@@ -43,12 +54,21 @@ if(
     }
 
 
-    if (isset($_POST['password']) && isset($_POST['password-confirm']) && $_POST['password'] === $_POST['password-confirm']) {
+    if (isset($_POST['password']) 
+    && isset($_POST['password-confirm']) 
+    && $_POST['password'] === $_POST['password-confirm']
+    && strlen($_POST['password']) >= 12) {
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $result = updatePassword($pdo, $userId, $password);
         if ($result) {
+            logAction($pdo, 'Edit Profile', 'User ID: '.$userId.' updated their password successfully');
             header('Content-Type: application/json');
             echo json_encode(['success' => true]);
+            exit();
+        } else {
+            logAction($pdo, 'Edit Profile', 'User ID: '.$userId.' failed to update their password');
+            header('Content-Type: application/json');
+            echo json_encode(['success' => false, 'message' => 'Failed to update password']);
             exit();
         }
     }

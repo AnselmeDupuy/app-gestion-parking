@@ -85,8 +85,8 @@
         <label>Last Name: <input type="text" name="surName" placeholder="<?php echo htmlspecialchars($user['surName']); ?>" ></label>
         <label>Email: <input type="email" name="email" placeholder="<?php echo htmlspecialchars($user['email']); ?>" ></label>
         <label>Phone: <input type="number" name="phone" placeholder="<?php echo htmlspecialchars($user['phone']); ?>" ></label>
-        <label>New Password: <input type="password" name="password"></label>
-        <label>Confirm New Password: <input type="password" name="password-confirm"></label>
+        <label>New Password: <input type="password" name="password" minlength="12"></label>
+        <label>Confirm New Password: <input type="password" name="password-confirm" minlength="12"></label>
         <div>
             <button class="btn btn-primary" type="button" id="close-modal-btn">Cancel</button>
             <button class="btn btn-primary" type="submit">Save</button>
@@ -130,12 +130,24 @@
             e.preventDefault()
             const form = e.target
             const formData = new FormData(form)
+            
+
 
             for (const [key, value] of formData.entries()) {
                 if (value.trim() === '') {
                     formData.delete(key)
                 }
             }
+
+            const password = document.querySelector('input[name="password"]').value
+            const confirm = document.querySelector('input[name="password-confirm"]').value
+
+            if (password !== "" && password !== confirm) {
+                e.preventDefault();
+                alert("Passwords do not match!");
+                return false;
+            }
+
             await editProfile(formData)
             form.reset()
             modal.style.display = "none"

@@ -44,10 +44,11 @@ export const editProfile = async (formData) => {
             body: formData,
         })
 
-
         const result =  await response.json()
+
+        console.log('Response:', result);
         if (result.success) {
-            alert('profile mofidied successfully !')
+            alert('profile modified successfully !')
         } else {
             alert(`Error editing profile: ${result.message}`)
         }

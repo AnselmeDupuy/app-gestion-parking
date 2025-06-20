@@ -1,5 +1,5 @@
 <div class="navbar">
-    <h2>Parking</h2>
+    <h2>ParkFlow</h2>
     <nav class="navbarLinks">
 
     </nav>

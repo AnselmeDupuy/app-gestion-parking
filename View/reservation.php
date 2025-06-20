@@ -37,7 +37,7 @@
     </select>
 
     <label for="vehicle-select">Vehicle :</label>
-    <select class="form-select" id="vehicle-select" name="vehicle_id" >
+    <select class="form-select" id="vehicle-select" name="vehicle_id" required>
         <?php foreach ($cars as $car): ?>
             <option value="<?php echo $car['id']; ?>">
                 <?php echo htmlspecialchars($car['car_name']) . ' - ' . htmlspecialchars($car['license_plate']); ?>

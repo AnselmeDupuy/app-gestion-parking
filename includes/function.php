@@ -60,7 +60,14 @@ function getDuration(string $startTime, string $endTime) : string
         $start = new DateTime($startTime);
         $end = new DateTime($endTime);
         $total = $start->diff($end);
+
         $duration = $total->h."h";
+        if($total->d > 0) {
+            $duration = $total->d."day ".$duration;
+        }
+        if($total->y > 0) {
+            $duration = $total->y."year ".$duration;
+        }
         if($total->i > 0) {
             $duration .= $total->i;
         }
