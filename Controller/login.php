@@ -24,28 +24,29 @@ if (isset($_POST["login_button"])) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['group'] = $user['group_id'] == 2 ? 'admin' : 'user';
                 $_SESSION['first_name'] = $user['firstName'];
-                $_SESSION['last_name'] = $user['lastName'];
+                $_SESSION['last_name'] = $user['surName'];
                 $_SESSION['phone'] = $user['phone'];
                 $_SESSION['subscription_status'] = $user['subbed'] == 1 ? 'premium' : 'free';
 
                 $details = "Login successful";
                 logAction($pdo, $action, $details." ".$_SESSION['email']);
-
+                
                 header("Location: home");
-
                 exit();
+
+
             } elseif ($user['is_active'] !== 1 && $isMatchPassword && is_array($user)){
                 $errors[] = "account is inactive";
                 $details = "Login attempt failed, account is inactive";
                 logAction($pdo, $action, $details." ".$user['email']);
             } else {
-                $errors[] = "authentication failed, invalid password";
+                $errors[] = "authentication failed, invalid information";
                 $details = "Login attempt failed, invalid password";
                 logAction($pdo, $action, $details." ".$user['email']);
             }
         } else {
             $errors[] = "user invalid";
-            $details = "Login attempt failed, invalid user";
+            $details = "Login attempt failed, invalid information";
             logAction($pdo, $action, $details);
         }
     } else {
@@ -53,6 +54,7 @@ if (isset($_POST["login_button"])) {
         $details = "Login attempt failed, missing input";
         logAction($pdo, $action, $details);
     }
+
 }
 
 

@@ -8,7 +8,14 @@ function countLogs(PDO $pdo, ?string $search = null, int $perPage = 10, int $pag
     $query2 = "SELECT * FROM `logs`";
 
     if ($search !== null) {
-        $searchString = ' WHERE id LIKE :search OR user_id LIKE :search OR action LIKE :search OR created_at LIKE :search OR action_details LIKE :search OR client_ip LIKE :search OR user_agent LIKE :search';
+        $searchString = ' WHERE id LIKE :search 
+        OR user_id LIKE :search 
+        OR action LIKE :search 
+        OR created_at LIKE :search 
+        OR action_details LIKE :search 
+        OR client_ip LIKE :search 
+        OR user_agent LIKE :search';
+        
         $query .= $searchString;
         $query2 .= $searchString;
     }

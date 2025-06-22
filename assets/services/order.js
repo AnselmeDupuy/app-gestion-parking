@@ -1,4 +1,4 @@
-import { calculatePrice } from "./functions"
+import { calculatePrice } from "./functions.js"
 
 export const getOrders = async (orderContainer) => {
     const response = await fetch('order', {
@@ -65,7 +65,7 @@ const generateOrders = async (orders, orderContainer) => {
         const orderRow = `
         <tr>
         <td>${order.id}</td>
-        <td>${order.car_id}</td>
+        <td>${order.car_name}</td>
         <td>${order.start_time}</td>
         <td>${order.end_time}</td>
         <td>${order.type}</td>
@@ -125,8 +125,8 @@ const generatePaypalBtn = async (orders, orderContainer) => {
                     .then(res => res.json())
                     .then(async res => {
                   if (res.success) {
-                      alert("Order Complete")
                       await getOrders(orderContainer)
+                      alert("Order Complete")
                   } else {
                       alert("Pament captured but failed backend")
                   }

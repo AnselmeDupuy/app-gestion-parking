@@ -5,21 +5,22 @@ export const addReservation = async (form) => {
 
     try {
         
-    const response = await fetch(`reservation`, {
-        method: 'POST',
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-        },
-        body: formData,
-    })
+        const response = await fetch(`reservation`, {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: formData,
+        })
 
-    const result =  await response.json()
-    if (result.success) {
-        form.reset();
-        alert('Reservation added successfully!')
-    } else {
-        alert(`Error adding reservation: ${result.message}`)
-    }
+
+        const result =  await response.json()
+        if (result.success) {
+            form.reset();
+            alert('Reservation added successfully!')
+        } else {
+            alert(`Error adding reservation: ${result.message}`)
+        }
     } catch (error) {
         console.error('Error:', error);
         alert(`Error adding reservation: ${error.message}`)

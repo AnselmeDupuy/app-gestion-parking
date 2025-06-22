@@ -3,9 +3,9 @@ export function getUser() {
     return new Promise((resolve) => {
         const user = {
             group: sessionStorage.getItem('group') || null,
-        };
+        }
         resolve(user)
-    });
+    })
 }
 
 export function isAdmin(user) {

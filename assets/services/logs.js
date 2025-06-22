@@ -44,25 +44,70 @@ const getPageCount = (logCount) => {
 
 export const updatePagination = (pages, paginationContainer, currentPage, logsContainer, search) => {
     const pageCount = getPageCount(pages)
-
     paginationContainer.innerHTML = ''
 
-    for (let i = 1; i <= pageCount; i++) {
-        const pageItem = document.createElement('li')
-        pageItem.classList.add('page-item')
-        if (i === currentPage) {
-            pageItem.classList.add('active')
+    // Helper to create a page button
+    function createPageItem(label, page, disabled = false, active = false) {
+        const li = document.createElement('li')
+        li.classList.add('page-item')
+        if (disabled) li.classList.add('disabled')
+        if (active) li.classList.add('active')
+        li.innerHTML = `<a class="page-link" href="#" data-page="${page}">${label}</a>`
+        if (!disabled && !active) {
+            li.querySelector('.page-link').addEventListener('click', (e) => {
+                e.preventDefault()
+                getLogs(logsContainer, paginationContainer, page, search)
+            })
         }
-
-        pageItem.innerHTML = `<a class="page-link" href="#" data-page="${i}">${i}</a>`
-        paginationContainer.appendChild(pageItem)
-        
-        pageItem.querySelector('.page-link').addEventListener('click', (e) => {
-            e.preventDefault()
-            const selectedPage = parseInt(e.target.getAttribute('data-page'))
-            getLogs(logsContainer, paginationContainer, selectedPage, search)
-        })
-
-
+        return li
     }
+
+    paginationContainer.appendChild(
+        createPageItem('&lsaquo;', currentPage - 1, currentPage === 1)
+    )
+
+    if (currentPage > 2) {
+        paginationContainer.appendChild(
+            createPageItem(1, 1)
+        )
+        if (currentPage > 3) {
+            // Ellipsis before current
+            const ellipsis = document.createElement('li')
+            ellipsis.classList.add('page-item', 'disabled')
+            ellipsis.innerHTML = `<span class="page-link">...</span>`
+            paginationContainer.appendChild(ellipsis)
+        }
+    }
+
+    if (currentPage > 1) {
+        paginationContainer.appendChild(
+            createPageItem(currentPage - 1, currentPage - 1)
+        )
+    }
+
+    paginationContainer.appendChild(
+        createPageItem(currentPage, currentPage, false, true)
+    )
+
+    if (currentPage < pageCount) {
+        paginationContainer.appendChild(
+            createPageItem(currentPage + 1, currentPage + 1)
+        )
+    }
+
+    if (currentPage < pageCount - 1) {
+        if (currentPage < pageCount - 2) {
+            const ellipsis = document.createElement('li')
+            ellipsis.classList.add('page-item', 'disabled')
+            ellipsis.innerHTML = `<span class="page-link">...</span>`
+            paginationContainer.appendChild(ellipsis)
+        }
+        paginationContainer.appendChild(
+            createPageItem(pageCount, pageCount)
+        )
+    }
+
+    paginationContainer.appendChild(
+        createPageItem('&rsaquo;', currentPage + 1, currentPage === pageCount)
+    )
 }
